@@ -12,6 +12,7 @@ public class Demo01 {
 	public static void main(String[] args) {
 		Runnable runnable = new Runnable() {
 			Count c = new Count();
+			@Override
 			public void run() {
 				c.count();
 			}

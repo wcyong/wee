@@ -13,6 +13,7 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
@@ -174,7 +175,7 @@ public class SAXOperateXmlDemo {
 			//创建保存xml的结果流对象
 			Result resultXml = new StreamResult(new FileOutputStream("c:\\user.xml"));
 			//获取sax生产工厂对象实例  
-			SAXTransformerFactory factory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+			SAXTransformerFactory factory = (SAXTransformerFactory) TransformerFactory.newInstance();
 			//获取sax生产处理者对象实例
 			TransformerHandler transformerHandler = factory.newTransformerHandler();
 			transformerHandler.setResult(resultXml);

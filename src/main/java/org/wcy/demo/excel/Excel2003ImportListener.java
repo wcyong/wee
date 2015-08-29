@@ -1,6 +1,5 @@
 package org.wcy.demo.excel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.hssf.eventusermodel.HSSFListener;
@@ -8,17 +7,15 @@ import org.apache.poi.hssf.record.BOFRecord;
 import org.apache.poi.hssf.record.BlankRecord;
 import org.apache.poi.hssf.record.BoolErrRecord;
 import org.apache.poi.hssf.record.BoundSheetRecord;
-import org.apache.poi.hssf.record.ExtendedFormatRecord;
 import org.apache.poi.hssf.record.FormulaRecord;
 import org.apache.poi.hssf.record.LabelSSTRecord;
 import org.apache.poi.hssf.record.NumberRecord;
 import org.apache.poi.hssf.record.Record;
 import org.apache.poi.hssf.record.RowRecord;
 import org.apache.poi.hssf.record.SSTRecord;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.wcy.demo.excel.model.ExcelData;
 
 public class Excel2003ImportListener implements HSSFListener {
@@ -50,9 +47,9 @@ public class Excel2003ImportListener implements HSSFListener {
 		case BOFRecord.sid:
 			//开始解析到workboot sheet 等
 			BOFRecord bof = (BOFRecord)record;
-			if(bof.getType() == bof.TYPE_WORKBOOK) {
+			if(bof.getType() == BOFRecord.TYPE_WORKBOOK) {
 				//workbook
-			} else if(bof.getType() == bof.TYPE_WORKSHEET) {
+			} else if(bof.getType() == BOFRecord.TYPE_WORKSHEET) {
 				//sheet
 			}
 			break;
@@ -151,10 +148,10 @@ public class Excel2003ImportListener implements HSSFListener {
 		String celllValue = "";
 		System.out.println("************");
 		System.out.println(formatString);
-		System.out.println(HSSFDateUtil.isInternalDateFormat(numberRecord.getXFIndex()));
-		System.out.println(HSSFDateUtil.isADateFormat(formatIndex, formatString));
+		System.out.println(DateUtil.isInternalDateFormat(numberRecord.getXFIndex()));
+		System.out.println(DateUtil.isADateFormat(formatIndex, formatString));
 		System.out.println("************");
-		if(HSSFDateUtil.isADateFormat(formatIndex, formatString)) {
+		if(DateUtil.isADateFormat(formatIndex, formatString)) {
 			celllValue = formatter.formatRawCellContents(numberRecord.getValue(), formatIndex, dateFormat);
 		} else {
 			celllValue = String.valueOf(Double.valueOf(numberRecord.getValue()).longValue());

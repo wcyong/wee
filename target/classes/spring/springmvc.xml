@@ -11,7 +11,7 @@
 	
 	<mvc:annotation-driven conversion-service="conversionService" validator="validator"></mvc:annotation-driven>
 	
-	<context:component-scan base-package="org.wcy.wee.controller"></context:component-scan>
+	<context:component-scan base-package="org.wcy.*.controller"></context:component-scan>
 	
 	<!-- 静态资源解析,
 		使用该配置在log中会出现个错误

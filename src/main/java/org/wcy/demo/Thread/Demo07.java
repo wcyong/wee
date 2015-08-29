@@ -26,6 +26,7 @@ public class Demo07 {
 		
 		//5秒后执行任务，以后每2秒执行一次 
 		schedulepool.scheduleWithFixedDelay(new Runnable() {
+			@Override
 			public void run() {
 				System.out.println("爆炸11");  
 			}

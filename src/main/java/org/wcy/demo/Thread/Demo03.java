@@ -80,6 +80,7 @@ class GetThread implements Runnable {
 		this.plate = plate;
 	}
 	
+	@Override
 	public void run() {
 		plate.getEgg();
 	}

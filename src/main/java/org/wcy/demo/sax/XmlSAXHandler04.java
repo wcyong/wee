@@ -42,6 +42,7 @@ public class XmlSAXHandler04 extends DefaultHandler {
 		this.currentQname = qName;
 	}
 
+	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		 //需要说明的是，因为每一个非空标签都有characters(),那么无法知道user子标签循环完了  

@@ -22,12 +22,14 @@ public class Demo02 {
 		final Output output = new Output();
 		
 		new Thread() {
+			@Override
 			public void run() {
 				output.output("zhangsan");
 			};
 		}.start();
 		
 		new Thread() {
+			@Override
 			public void run() {
 				output.output("lisi");
 			};

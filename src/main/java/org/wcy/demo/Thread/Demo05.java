@@ -15,6 +15,7 @@ import java.util.TimerTask;
  */
 public class Demo05 {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Timer timer = new Timer();
 		timer.schedule(new MyTimeTask2(), 2000);//2秒后启动任务
