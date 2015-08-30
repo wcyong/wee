@@ -11,7 +11,12 @@
 	
 	<mvc:annotation-driven conversion-service="conversionService" validator="validator"></mvc:annotation-driven>
 	
-	<context:component-scan base-package="org.wcy.wee.controller"></context:component-scan>
+	<context:component-scan base-package="org.wcy.wee.**.controller">
+		<context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
 	
 	<!-- 静态资源解析,
 		使用该配置在log中会出现个错误
@@ -45,7 +50,7 @@
 		<property name="converters">
 			<set>
 				<!-- 日期类型转换 -->
-				<bean class="org.wcy.wee.converter.CustomDateConverter"/>
+				<bean class="org.wcy.wee.sys.converter.CustomDateConverter"/>
 			</set>
 		</property>
 	</bean>
@@ -53,7 +58,7 @@
 	<!-- 全局异常处理器
 		只要实现HandlerExceptionResolver接口就是全局异常处理器
 	 -->
-	<bean class="org.wcy.wee.exception.CustomExceptionResolver"></bean>
+	<bean class="org.wcy.wee.sys.exception.CustomExceptionResolver"></bean>
 	
 	<!-- 文件上传 -->
 	<bean id="multipartResolver"

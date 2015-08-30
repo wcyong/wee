@@ -12,7 +12,7 @@
 	<!-- 打开Spring的Annotation支持 -->
 	<context:annotation-config />
 	<!-- 设定Spring 去哪些包中找Annotation -->
-	<context:component-scan base-package="org.wcy">
+	<context:component-scan base-package="org.wcy.wee">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" /> 
 	</context:component-scan>
 
@@ -45,13 +45,13 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
-		<property name="typeAliasesPackage" value="org.wcy.wee.model"></property>
+		<property name="typeAliasesPackage" value="org.wcy.wee.sys.model"></property>
 	</bean>
 
 	<!-- mapper扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 扫描包路径，如果需要扫描多个包，中间使用半角逗号隔开 -->
-		<property name="basePackage" value="org.wcy.wee.mapper"></property>
+		<property name="basePackage" value="org.wcy.wee.sys.mapper"></property>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 	
@@ -83,13 +83,13 @@
 	<!-- 配置AOP，Spring是通过AOP来进行事务管理的 -->
 	<aop:config>
 		<!-- 设置pointCut表示哪些方法要加入事务处理 -->
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* org.wcy.wee.service.impl.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* org.wcy.wee..service.impl.*.*(..))"/>
 	</aop:config>
 	
 	
 	<!-- 定时刷新微信AccessToken  start-->
 	<!-- <bean name="weixinJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="org.wcy.weixin.quartz.WeixinQuartzJob" />
+		<property name="jobClass" value="org.wcy.wee.weixin.quartz.WeixinQuartzJob" />
 		<property name="jobDataAsMap">
 			<map>
 				<entry key="refreshAccessTokenTask" value-ref="refreshAccessTokenTask" />

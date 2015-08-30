@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wcy.weixin.user.group.IWGroupService;
-import org.wcy.weixin.user.model.WGroup;
+import org.wcy.wee.weixin.user.group.IWGroupService;
+import org.wcy.wee.weixin.user.model.WGroup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring/applicationContext.xml")

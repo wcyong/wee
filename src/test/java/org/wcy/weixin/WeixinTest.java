@@ -23,17 +23,17 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
-import org.wcy.common.util.JsonUtil;
-import org.wcy.weixin.json.AccessToken;
-import org.wcy.weixin.json.ModelMsgData;
-import org.wcy.weixin.json.TemplateMsg;
-import org.wcy.weixin.media.MediaKit;
-import org.wcy.weixin.model.WeixinFinalValue;
-import org.wcy.weixin.model.WeixinMenu;
-import org.wcy.weixin.msg.MessageKit;
-import org.wcy.weixin.quartz.RefreshAccessTokenTask;
-import org.wcy.weixin.util.SecurityKit;
-import org.wcy.weixin.util.WeixinKit;
+import org.wcy.wee.common.util.JsonUtil;
+import org.wcy.wee.weixin.json.AccessToken;
+import org.wcy.wee.weixin.json.ModelMsgData;
+import org.wcy.wee.weixin.json.TemplateMsg;
+import org.wcy.wee.weixin.media.MediaKit;
+import org.wcy.wee.weixin.model.WeixinFinalValue;
+import org.wcy.wee.weixin.model.WeixinMenu;
+import org.wcy.wee.weixin.msg.MessageKit;
+import org.wcy.wee.weixin.quartz.RefreshAccessTokenTask;
+import org.wcy.wee.weixin.util.SecurityKit;
+import org.wcy.wee.weixin.util.WeixinKit;
 
 public class WeixinTest {
 

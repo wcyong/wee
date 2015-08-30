@@ -5,8 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wcy.wee.mapper.UserMapper;
-import org.wcy.wee.model.User;
+import org.wcy.wee.sys.mapper.UserMapper;
+import org.wcy.wee.sys.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value="/spring/applicationContext.xml")
