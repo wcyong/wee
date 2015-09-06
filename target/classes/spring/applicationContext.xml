@@ -45,13 +45,13 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
-		<property name="typeAliasesPackage" value="org.wcy.wee.sys.model"></property>
+		<property name="typeAliasesPackage" value="org.wcy.wee.sys.model,org.wcy.wee.weixin.model"></property>
 	</bean>
 
 	<!-- mapper扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 扫描包路径，如果需要扫描多个包，中间使用半角逗号隔开 -->
-		<property name="basePackage" value="org.wcy.wee.sys.mapper"></property>
+		<property name="basePackage" value="org.wcy.wee.sys.mapper,org.wcy.wee.weixin.mapper"></property>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 	
@@ -88,7 +88,7 @@
 	
 	
 	<!-- 定时刷新微信AccessToken  start-->
-	<!-- <bean name="weixinJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+	<bean name="weixinJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass" value="org.wcy.wee.weixin.quartz.WeixinQuartzJob" />
 		<property name="jobDataAsMap">
 			<map>
@@ -104,11 +104,11 @@
 		<property name="startDelay" value="1000" />
 	</bean>
 	
-	<bean id="cronTrigger"
+	<!-- <bean id="cronTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="runMeJob" />
 		<property name="cronExpression" value="0/5 * * * * ?" />
-	</bean>
+	</bean> -->
 	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
@@ -116,7 +116,7 @@
 			<ref bean="simpleTrigger" />
 		    </list>
 		</property>
-   </bean> -->
+   </bean>
    <!-- 定时刷新微信AccessToken  end-->
 	
 </beans> 

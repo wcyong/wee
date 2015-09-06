@@ -1,40 +1,28 @@
 package org.wcy.wee.weixin.model;
 
-import java.util.List;
-
 /**
- * 微信菜单
+ * 微信菜单对象
  * @author wcyong
  *
- * date    2015年8月21日
+ * date    2015年9月2日
  */
 public class WeixinMenu {
 
-	/**
-	 * 菜单id
-	 */
 	private int id;
 	/**
-	 * 菜单标题
+	 * 菜单名称
 	 */
 	private String name;
-	/**
-	 * 菜单的响应动作类型
-	 */
+	private String content;
+	private String url;
+	private String menuKey;
+	private Integer pid;
 	private String type;
 	/**
-	 * 网页链接，用户点击菜单可打开链接
+	 * 响应类型,如果为1表示用content来响应
 	 */
-	private String url;
-	/**
-	 * 菜单KEY值，用于消息接口推送
-	 */
-	private String key;
-	private int pid;
-	/**
-	 * 二级菜单数组，个数应为1~5个
-	 */
-	private List<WeixinMenu> sub_button;
+	private String respType;
+	
 	
 	
 	public int getId() {
@@ -49,11 +37,11 @@ public class WeixinMenu {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getType() {
-		return type;
+	public String getContent() {
+		return content;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getUrl() {
 		return url;
@@ -61,23 +49,29 @@ public class WeixinMenu {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public String getKey() {
-		return key;
+	public String getMenuKey() {
+		return menuKey;
 	}
-	public void setKey(String key) {
-		this.key = key;
+	public void setMenuKey(String menuKey) {
+		this.menuKey = menuKey;
 	}
-	public int getPid() {
+	public Integer getPid() {
 		return pid;
 	}
-	public void setPid(int pid) {
+	public void setPid(Integer pid) {
 		this.pid = pid;
 	}
-	public List<WeixinMenu> getSub_button() {
-		return sub_button;
+	public String getType() {
+		return type;
 	}
-	public void setSub_button(List<WeixinMenu> sub_button) {
-		this.sub_button = sub_button;
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getRespType() {
+		return respType;
+	}
+	public void setRespType(String respType) {
+		this.respType = respType;
 	}
 	
 	

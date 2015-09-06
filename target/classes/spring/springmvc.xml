@@ -21,9 +21,9 @@
 	<!-- 静态资源解析,
 		使用该配置在log中会出现个错误
 	 -->
-	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<!-- <mvc:resources location="/resources/" mapping="/resources/**"/> -->
 	<!-- 静态资源解析 -->
-	<!-- <bean id="resourceHttpRequestHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
+	<bean id="resourceHttpRequestHandler" class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
 		<property name="locations" value="/resources/"></property>	
 	</bean>
 	
@@ -33,7 +33,7 @@
 				<prop key="/resources/**">resourceHttpRequestHandler</prop>
 			</props>
 		</property>
-	</bean> -->
+	</bean>
 	
 	<!-- 视图解析器
 		解析jsp，默认使用jstl标签，classpath下的得有jstl的包 -->
@@ -58,7 +58,7 @@
 	<!-- 全局异常处理器
 		只要实现HandlerExceptionResolver接口就是全局异常处理器
 	 -->
-	<bean class="org.wcy.wee.sys.exception.CustomExceptionResolver"></bean>
+	<bean class="org.wcy.wee.common.exception.CustomExceptionResolver"></bean>
 	
 	<!-- 文件上传 -->
 	<bean id="multipartResolver"

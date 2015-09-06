@@ -140,6 +140,7 @@ public class Excel2003ImportListener implements HSSFListener {
 		}
 	}
 
+	//http://www.dexcoder.com/blog/article/3048.shtml
 	private String getCellValue(NumberRecord numberRecord) {
 		//判断是否是日期类型
 		//HSSFDateUtil.isInternalDateFormat(numberRecord.getXFIndex());

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wcy.wee.notification.mapper.NotificationDataMapper">
+
+	<update id="updateReadStatus" parameterType="int">
+		UPDATE t_notification_data t SET t.is_read = '1' WHERE t.id = #{id}
+	</update>
+	
+	<update id="updateReadAll" parameterType="int">
+		UPDATE t_notification_data t SET t.is_read = '1' WHERE t.user_id = #{userId}
+	</update>
+
+</mapper>

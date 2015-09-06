@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wcy.wee.weixin.mapper.WeixinMenuMapper">
+
+	<resultMap type="WeixinMenu" id="menuMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="content" property="content"/>
+		<result column="url" property="url"/>
+		<result column="menu_key" property="menuKey"/>
+		<result column="pid" property="pid"/>
+		<result column="type" property="type"/>
+		<result column="resp_type" property="respType"/>
+	</resultMap>
+
+	<select id="loadByKey" parameterType="String" resultMap="menuMap">
+		SELECT 
+			t.id,t.name,t.content,t.url,t.menu_key,t.pid,t.type,t.resp_type 
+		FROM t_weixin_menu t
+		WHERE t.menu_key = #{key}
+	</select>
+	
+	<select id="listAll" resultMap="menuMap">
+		SELECT 
+			t.id,t.name,t.content,t.url,t.menu_key,t.pid,t.type,t.resp_type 
+		FROM t_weixin_menu t
+	</select>
+	
+	<insert id="add" parameterType="WeixinMenu">
+		insert  into t_weixin_menu(name,content,url,menu_key,pid,type,resp_type)
+			values(#{name},#{content},#{url},#{menuKey},#{pid},#{type},#{respType});
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM t_weixin_menu WHERE id = #{id}
+	</delete>
+	
+	<select id="load" parameterType="int" resultMap="menuMap">
+		SELECT 
+			t.id,t.name,t.content,t.url,t.menu_key,t.pid,t.type,t.resp_type 
+		FROM t_weixin_menu t
+		WHERE t.id = #{id}
+	</select>
+	
+	<update id="update" parameterType="WeixinMenu">
+		update t_weixin_menu t set t.name = #{name},t.content=#{content},
+			t.url = #{url},t.menu_key=#{menuKey},t.pid=#{pid},t.type=#{type},
+			t.resp_type=#{respType}
+		where t.id = #{id}
+	</update>
+	
+</mapper>

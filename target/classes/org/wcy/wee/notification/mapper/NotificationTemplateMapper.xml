@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wcy.wee.notification.mapper.NotificationTemplateMapper">
+
+	<select id="findById" parameterType="int" resultType="NotificationTemplateMapper">
+		SELECT t.id,t.name,t.system,t.title,t.template,t.deleted 
+			FROM t_notification_template t 
+		WHERE t.id = #{id}
+	</select>
+
+	<select id="findByName" parameterType="string" resultType="NotificationTemplateMapper">
+		SELECT t.id,t.name,t.system,t.title,t.template,t.deleted 
+			FROM t_notification_template t 
+		WHERE t.name = #{name}
+	</select>	
+	
+</mapper>

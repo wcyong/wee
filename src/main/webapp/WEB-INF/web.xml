@@ -11,8 +11,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring/applicationContext.xml</param-value>
 	</context-param>
-
-
+	
 	<!-- springmvc前端控制器 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
@@ -22,6 +21,8 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:spring/springmvc.xml</param-value>
 		</init-param>
+		<load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
 	</servlet>
 
 	<servlet-mapping>

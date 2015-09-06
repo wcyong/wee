@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
-import org.wcy.wee.sys.exception.CustomException;
+import org.wcy.wee.common.exception.CustomException;
 import org.wcy.wee.sys.model.User;
 import org.wcy.wee.sys.service.UserService;
 import org.wcy.wee.sys.validation.ValidGroup1;
