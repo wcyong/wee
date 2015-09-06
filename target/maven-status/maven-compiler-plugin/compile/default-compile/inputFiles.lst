@@ -13,9 +13,10 @@ E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\dto\WeixinMenuDto.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\common\util\JsonUtil.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\sys\mapper\UserMapper.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\servlet\BeanFactoryContext.java
+E:\hadoop\wee\src\main\java\org\wcy\wee\log\mapper\LogsMapper.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\thread\Demo04.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\sys\validation\ValidGroup1.java
-E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\service\WeixinMenuServiceImpl.java
+E:\hadoop\wee\src\main\java\org\wcy\wee\log\model\Logs.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\sax\XmlSAXHandler02.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\thread\Demo01.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\model\WeixinMenu.java
@@ -37,6 +38,7 @@ E:\hadoop\wee\src\main\java\org\wcy\wee\sys\model\Orderdetail.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\servlet3\MyAsyncListener.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\servlet3\ExampleServlet.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\quartz\RefreshAccessTokenTask.java
+E:\hadoop\wee\src\main\java\org\wcy\wee\log\service\LogsService.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\excel\ExcelImportTest.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\model\WeixinFinalValue.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\sys\model\UserExample.java
@@ -45,9 +47,13 @@ E:\hadoop\wee\src\main\java\org\wcy\wee\demo\thread\Demo07.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\sax\XmlSAXHandler03.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\servlet\InitServlet.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\sax\XmlSAXHandler04.java
+E:\hadoop\wee\src\main\java\org\wcy\wee\log\aop\LogAspect.java
+E:\hadoop\wee\src\main\java\org\wcy\wee\log\service\impl\LogsServiceImpl.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\excel\model\ExcelData.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\sys\service\impl\UserServiceImpl.java
+E:\hadoop\wee\src\main\java\org\wcy\wee\common\util\CodeUtil.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\sys\model\OrdersExample.java
+E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\service\impl\WeixinMenuServiceImpl.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\demo\servlet3\AsyncServlet3.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\weixin\service\WeixinMenuService.java
 E:\hadoop\wee\src\main\java\org\wcy\wee\sys\service\UserService.java

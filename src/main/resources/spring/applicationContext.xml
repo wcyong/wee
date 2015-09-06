@@ -15,7 +15,7 @@
 	<context:component-scan base-package="org.wcy.wee">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" /> 
 	</context:component-scan>
-
+	
 	<!-- 加载db.properties文件中的内容，db.properties文件中key命名要有一定的特殊规则 -->
 	<context:property-placeholder location="classpath:db.properties" />
 
@@ -45,13 +45,13 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
-		<property name="typeAliasesPackage" value="org.wcy.wee.sys.model,org.wcy.wee.weixin.model"></property>
+		<property name="typeAliasesPackage" value="org.wcy.wee.sys.model,org.wcy.wee.weixin.model,org.wcy.wee.log.model"></property>
 	</bean>
 
 	<!-- mapper扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 扫描包路径，如果需要扫描多个包，中间使用半角逗号隔开 -->
-		<property name="basePackage" value="org.wcy.wee.sys.mapper,org.wcy.wee.weixin.mapper"></property>
+		<property name="basePackage" value="org.wcy.wee.sys.mapper,org.wcy.wee.weixin.mapper,org.wcy.wee.log.mapper"></property>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 	

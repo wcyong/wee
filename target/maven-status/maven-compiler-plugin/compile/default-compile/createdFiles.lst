@@ -9,6 +9,7 @@ org\wcy\wee\sys\model\ItemsExample.class
 org\wcy\wee\weixin\mapper\WeixinMenuMapper.class
 org\wcy\wee\demo\excel\Excel2007ImportSheetHandler.class
 org\wcy\wee\demo\excel\ExcelImportTest.class
+org\wcy\wee\log\aop\LogAspect.class
 org\wcy\wee\sys\model\OrdersExample.class
 org\wcy\wee\demo\thread\Demo05.class
 org\wcy\wee\weixin\kit\SecurityKit.class
@@ -21,13 +22,16 @@ org\wcy\wee\weixin\quartz\RefreshAccessTokenTask.class
 org\wcy\wee\demo\servlet3\AsyncServlet3$1.class
 org\wcy\wee\demo\sax\SAXOperateXmlDemo.class
 org\wcy\wee\sys\model\UserExample$Criterion.class
+org\wcy\wee\log\service\impl\LogsServiceImpl.class
 org\wcy\wee\demo\sax\model\Attribute.class
 org\wcy\wee\demo\thread\Demo07.class
 org\wcy\wee\weixin\service\WeixinMenuService.class
 org\wcy\wee\weixin\controller\WeixinMenuController.class
 org\wcy\wee\demo\thread\Demo06.class
+org\wcy\wee\weixin\service\impl\WeixinMenuServiceImpl.class
 org\wcy\wee\demo\servlet3\ExampleServlet.class
 org\wcy\wee\demo\thread\Demo01.class
+org\wcy\wee\log\service\LogsService.class
 org\wcy\wee\common\util\PropertiesUtil.class
 org\wcy\wee\demo\thread\Count.class
 org\wcy\wee\weixin\model\WeixinFinalValue.class
@@ -55,13 +59,13 @@ org\wcy\wee\demo\sax\XmlSAXHandler01.class
 org\wcy\wee\sys\model\Items.class
 org\wcy\wee\weixin\quartz\WeixinQuartzJob.class
 org\wcy\wee\sys\model\ItemsQueryVo.class
-org\wcy\wee\weixin\service\WeixinMenuServiceImpl.class
 org\wcy\wee\demo\thread\Demo06$1.class
 org\wcy\wee\weixin\controller\WeixinController.class
 org\wcy\wee\sys\model\OrdersExample$Criterion.class
 org\wcy\wee\sys\model\OrderdetailExample$Criteria.class
-org\wcy\wee\sys\model\Orderdetail.class
 org\wcy\wee\sys\service\UserService.class
+org\wcy\wee\sys\model\Orderdetail.class
+org\wcy\wee\common\util\CodeUtil.class
 org\wcy\wee\demo\sax\XmlSAXHandler03.class
 org\wcy\wee\weixin\servlet\WeixinContext.class
 org\wcy\wee\sys\model\OrderdetailExample.class
@@ -74,6 +78,7 @@ org\wcy\wee\demo\servlet3\WebInitParamServlet.class
 org\wcy\wee\demo\thread\Demo01$1.class
 org\wcy\wee\demo\thread\Demo02$2.class
 org\wcy\wee\sys\controller\UserController.class
+org\wcy\wee\log\model\Logs.class
 org\wcy\wee\demo\excel\Excel2007ImportSheetHandler$1.class
 org\wcy\wee\demo\sax\model\User.class
 org\wcy\wee\demo\servlet3\AsyncServlet2.class
@@ -98,3 +103,4 @@ org\wcy\wee\demo\thread\Output.class
 org\wcy\wee\sys\model\ItemsExample$Criteria.class
 org\wcy\wee\demo\sax\model\Node.class
 org\wcy\wee\demo\thread\Demo04$MyTimeTask1.class
+org\wcy\wee\log\mapper\LogsMapper.class
