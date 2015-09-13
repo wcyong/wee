@@ -50,7 +50,7 @@
 		<property name="converters">
 			<set>
 				<!-- 日期类型转换 -->
-				<bean class="org.wcy.wee.sys.converter.CustomDateConverter"/>
+				<bean class="org.wcy.wee.common.converter.CustomDateConverter"/>
 			</set>
 		</property>
 	</bean>

@@ -5,7 +5,7 @@ package org.wcy.wee.common.exception;
  * 
  * @author wcyong
  * 
- *         date 2015年6月14日
+ *  date 2015年6月14日
  */
 @SuppressWarnings("serial")
 public class CustomException extends Exception {

@@ -14,6 +14,7 @@
 		<mybatis.version>3.3.0</mybatis.version>
 		<mysql.version>5.1.35</mysql.version>
 		<junt.version>4.10</junt.version>
+		<pagehelper.version>4.0.1</pagehelper.version>
 	</properties>
 
 	<dependencies>
@@ -240,6 +241,13 @@
 			<groupId>com.alibaba.rocketmq</groupId>
 			<artifactId>rocketmq-client</artifactId>
 			<version>3.2.6</version>
+		</dependency>
+		
+		<!--分页插件 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${pagehelper.version}</version>
 		</dependency>
 
 	</dependencies>
