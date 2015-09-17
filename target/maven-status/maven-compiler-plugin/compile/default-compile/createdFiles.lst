@@ -2,6 +2,7 @@ org\wcy\wee\demo\ssm\model\ItemsExample.class
 org\wcy\wee\demo\ssm\model\Items.class
 org\wcy\wee\demo\ssm\model\UserExample.class
 org\wcy\wee\demo\excel\model\ExcelData.class
+org\wcy\wee\sys\model\PersonOrgPos.class
 org\wcy\wee\demo\rocketmq\Consumer.class
 org\wcy\wee\weixin\dto\WeixinMenuDto.class
 org\wcy\wee\weixin\servlet\InitServlet.class
@@ -11,6 +12,7 @@ org\wcy\wee\demo\ssm\model\OrdersExample$GeneratedCriteria.class
 org\wcy\wee\demo\excel\Excel2007ImportSheetHandler.class
 org\wcy\wee\demo\excel\ExcelImportTest.class
 org\wcy\wee\log\aop\LogAspect.class
+org\wcy\wee\sys\model\Org.class
 org\wcy\wee\demo\thread\Demo05.class
 org\wcy\wee\demo\ssm\mapper\UserMapper.class
 org\wcy\wee\demo\ssm\controller\JsonTest.class
@@ -22,6 +24,7 @@ org\wcy\wee\demo\thread\Demo02.class
 org\wcy\wee\demo\thread\Demo07$1.class
 org\wcy\wee\demo\thread\Demo08.class
 org\wcy\wee\weixin\quartz\RefreshAccessTokenTask.class
+org\wcy\wee\sys\model\OrgRule.class
 org\wcy\wee\demo\ssm\model\OrdersExample$Criterion.class
 org\wcy\wee\demo\servlet3\AsyncServlet3$1.class
 org\wcy\wee\demo\ssm\controller\TabController.class
@@ -30,6 +33,7 @@ org\wcy\wee\demo\ssm\model\OrdersExample$Criteria.class
 org\wcy\wee\log\service\impl\LogsServiceImpl.class
 org\wcy\wee\demo\ssm\model\Orderdetail.class
 org\wcy\wee\demo\sax\model\Attribute.class
+org\wcy\wee\sys\model\OrgType.class
 org\wcy\wee\demo\thread\Demo07.class
 org\wcy\wee\common\converter\CustomDateConverter.class
 org\wcy\wee\weixin\service\WeixinMenuService.class
@@ -57,6 +61,7 @@ org\wcy\wee\demo\sax\XmlSAXHandler04.class
 org\wcy\wee\demo\thread\Demo05$MyTimeTask1.class
 org\wcy\wee\demo\ssm\model\OrderdetailExample$Criteria.class
 org\wcy\wee\demo\ssm\validation\ValidGroup1.class
+org\wcy\wee\sys\model\Position.class
 org\wcy\wee\demo\thread\Plate.class
 org\wcy\wee\demo\ssm\model\Orders.class
 org\wcy\wee\demo\ssm\service\impl\UserServiceImpl.class
@@ -71,6 +76,7 @@ org\wcy\wee\demo\ssm\model\ItemsExample$GeneratedCriteria.class
 org\wcy\wee\common\util\CodeUtil.class
 org\wcy\wee\demo\sax\XmlSAXHandler03.class
 org\wcy\wee\weixin\servlet\WeixinContext.class
+org\wcy\wee\sys\model\OrgTypeRule.class
 org\wcy\wee\demo\ssm\model\OrdersExample.class
 org\wcy\wee\demo\servlet3\AsyncServlet$1.class
 org\wcy\wee\common\exception\CustomExceptionResolver.class
@@ -80,6 +86,7 @@ org\wcy\wee\demo\rocketmq\Producer.class
 org\wcy\wee\demo\servlet3\WebInitParamServlet.class
 org\wcy\wee\demo\thread\Demo01$1.class
 org\wcy\wee\demo\thread\Demo02$2.class
+org\wcy\wee\sys\model\Person.class
 org\wcy\wee\log\model\Logs.class
 org\wcy\wee\demo\excel\Excel2007ImportSheetHandler$1.class
 org\wcy\wee\demo\sax\model\User.class

@@ -7,8 +7,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wcy.wee.sys.mapper.UserMapper;
-import org.wcy.wee.sys.model.User;
+import org.wcy.wee.demo.ssm.mapper.UserMapper;
+import org.wcy.wee.demo.ssm.model.User;
 import org.wcy.wee.weixin.mapper.WeixinMenuMapper;
 import org.wcy.wee.weixin.model.WeixinMenu;
 
