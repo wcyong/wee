@@ -88,7 +88,7 @@
 	
 	
 	<!-- 定时刷新微信AccessToken  start-->
-	<bean name="weixinJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+	<!-- <bean name="weixinJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass" value="org.wcy.wee.weixin.quartz.WeixinQuartzJob" />
 		<property name="jobDataAsMap">
 			<map>
@@ -104,11 +104,11 @@
 		<property name="startDelay" value="1000" />
 	</bean>
 	
-	<!-- <bean id="cronTrigger"
+	<bean id="cronTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="runMeJob" />
 		<property name="cronExpression" value="0/5 * * * * ?" />
-	</bean> -->
+	</bean>
 	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
@@ -116,7 +116,7 @@
 			<ref bean="simpleTrigger" />
 		    </list>
 		</property>
-   </bean>
+   </bean> -->
    <!-- 定时刷新微信AccessToken  end-->
-	
+   
 </beans> 

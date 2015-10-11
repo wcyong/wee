@@ -18,6 +18,9 @@ import org.wcy.wee.log.service.LogsService;
  * 记录日志的切面
  * 	只记录增、删、改等方法， 不记录查询操作
  * 
+ * 在日志数据量大的时候，按月分表存储
+ * 		通过定时任务创建表，再根据月份取不同的表
+ * 
  * @author wcyong
  *
  * @date   2015年9月6日
@@ -30,8 +33,8 @@ public class LogAspect {
 	
 	@Autowired
 	private LogsService logsService;
-	@Autowired
-	private HttpSession session;
+	/*@Autowired
+	private HttpSession session;*/
 
 	/**
 	 * 切入点：表示在哪个类的哪个方法进行切入
@@ -66,10 +69,10 @@ public class LogAspect {
 			//TODO
 			//从session中获取登录用户，将操作人设置为 用户id:登录帐号 的格式
 			//session.getAttribute("loginUser");
-			String loginId = session.getId();
+			//String loginId = session.getId();
 			logs.setId(CodeUtil.uuid());
 			//设置操作人
-			logs.setOperator(loginId);
+			//logs.setOperator(loginId);
 			String methodName = pjp.getSignature().getName();
 			String clzName = pjp.getTarget().getClass().getSimpleName();
 			//操作名称,类名称.方法名

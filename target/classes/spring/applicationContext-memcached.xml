@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 配置memcached -->
+	<bean id="memCachedClient" class="com.whalin.MemCached.MemCachedClient">
+		<constructor-arg>
+			<value>sockIOPool</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="sockIOPool" class="com.whalin.MemCached.SockIOPool" factory-method="getInstance" init-method="initialize" destroy-method="shutDown">
+		<constructor-arg>
+			<value>sockIOPool</value>
+		</constructor-arg>
+		<!-- memcached服务器列表 -->
+		<property name="servers">
+			<list>
+				<value>192.168.1.105:11211</value>
+			</list>
+		</property>
+		<!-- memcached服务器对应的权重 -->
+		<property name="weights">
+			<list>
+				<value>1</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 切面对象 -->
+	<bean id="memcachedAspect" class="org.wcy.wee.common.web.aop.MemcachedAspect"/>
+	
+	<!-- aop配置 -->
+	<aop:config>
+		<aop:aspect ref="memcachedAspect">
+			<aop:around method="aroundMethod" pointcut="execution(* org.wcy.wee.demo.ssm.service.impl.*.find*(..))"/>
+			<aop:after method="afterMethod" pointcut="execution(* org.wcy.wee.demo.ssm.service.impl.*.update*(..))"/>
+		</aop:aspect>
+	</aop:config>
+	
+</beans> 

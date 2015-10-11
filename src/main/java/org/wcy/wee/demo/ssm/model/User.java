@@ -1,5 +1,6 @@
 package org.wcy.wee.demo.ssm.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
@@ -8,8 +9,13 @@ import javax.validation.constraints.Size;
 import org.wcy.wee.demo.ssm.validation.ValidGroup1;
 import org.wcy.wee.demo.ssm.validation.ValidGroup2;
 
-public class User {
-    private Integer id;
+public class User implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     /**
      * 校验username在1至5个字符之间

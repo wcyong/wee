@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String ip = request.getRemoteAddr();
+	String ip2 = request.getLocalAddr();
+%>
 <html>
 <body>
 <h2>Hello World!</h2>
-<form action="<%=request.getContextPath()%>/servlet/upload" method="post" enctype="multipart/form-data">
-	<input type="file" name="upload"/>
-	<input type="submit" value="提交">
-</form>
+	<h1>
+		<%=ip %><br>
+		<%=ip2 %>
+	</h1>
 </body>
 </html>

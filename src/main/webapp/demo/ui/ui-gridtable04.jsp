@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>GridTable demo</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap-3.3.5-dist/css/bootstrap.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/ui/bootstrap-custom.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/ui/app-ui.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/ui/css/bootstrap-custom.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/ui/auk-ui.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
