@@ -22,7 +22,7 @@ import com.whalin.MemCached.MemCachedClient;
  * 			1.2如果从memcached中获取到值，则直接返回结果，不再进入service查询.
  * 				其中memcached中存放的key规则为：包名+ 类名 + 方法名 + 参数(多个)（参数转换为json）
  * 		2.通过aop后置通知对add,update,remove等请求进行拦截
- * 			即将执行完service方法后，通过该拦截，将该包名+ 类名开的key全部从memcached中清除
+ * 			即执行完service方法后，通过该拦截，将该包名+ 类名开头的key全部从memcached中清除
  * 
  * @author wcyong
  *
