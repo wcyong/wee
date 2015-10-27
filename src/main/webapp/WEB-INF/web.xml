@@ -3,21 +3,22 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0" metadata-complete="false">
 
+	<!-- spring监听器 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<!-- 增加该监听器，可以在普通的类中直接注入HttpSession，HttpServletRequest,直接获取session和request -->
 	<listener>
-	    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-	
+
 	<!-- 加载spring容器 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:spring/applicationContext*.xml</param-value>
+		<param-value>classpath*:spring/*.xml,</param-value>
 	</context-param>
-	
+
 	<!-- springmvc前端控制器 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
@@ -28,7 +29,7 @@
 			<param-value>classpath:spring/springmvc.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-        <async-supported>true</async-supported>
+		<async-supported>true</async-supported>
 	</servlet>
 
 	<servlet-mapping>
@@ -53,5 +54,14 @@
 		<filter-name>CharacterFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<servlet>
+		<servlet-name>captcha</servlet-name>
+		<servlet-class>org.wcy.wee.common.captcha.JcaptchaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>captcha</servlet-name>
+		<url-pattern>/captcha.svl</url-pattern>
+	</servlet-mapping>
 
 </web-app>

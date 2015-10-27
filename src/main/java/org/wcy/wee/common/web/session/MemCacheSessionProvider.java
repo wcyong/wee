@@ -74,6 +74,14 @@ public class MemCacheSessionProvider implements SessionProvider{
 	public void setExpiry(int expiry) {
 		this.expiry = expiry;
 	}
+
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		if(memCachedClient.keyExists(getSessionId(request, response))){
+			memCachedClient.delete(getSessionId(request, response));
+		}
+		//清理Cookie		
+	}
 	
 
 }

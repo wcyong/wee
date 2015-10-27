@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date   2015年10月9日
  */
 public interface SessionProvider {
-
+	
 	/**
 	 * 向Session设置值
 	 * @param name
@@ -34,5 +34,12 @@ public interface SessionProvider {
 	 * @return
 	 */
 	public String getSessionId(HttpServletRequest request,HttpServletResponse response);
+	
+	/**
+	 * 退出登陆
+	 * @param request
+	 * @param response
+	 */
+	public void logout(HttpServletRequest request,HttpServletResponse response);
 	
 }

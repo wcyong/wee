@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
  */
 public class HttpSessionProvider implements SessionProvider{
 
+	private int expiry = 30;//分钟
+	
 	@Override
 	public void setAttribute(HttpServletRequest request,HttpServletResponse response, String name,
 			Serializable value) {
@@ -35,4 +37,18 @@ public class HttpSessionProvider implements SessionProvider{
 		return request.getSession().getId();
 	}
 
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		if(session != null){
+			session.invalidate();
+		}
+		//清理Cookie
+		//Cookie JSESSIONID 		
+	}
+
+	public void setExpiry(int expiry) {
+		this.expiry = expiry;
+	}
+	
 }

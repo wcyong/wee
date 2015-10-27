@@ -33,7 +33,7 @@ public class ExcelImportTest {
 	public static void main(String[] args) {
 		ExcelImportTest test = new ExcelImportTest();
 		try {
-			InputStream is = new FileInputStream("F:/test/2003.xls");
+			InputStream is = new FileInputStream("F:/test/2.xls");
 			//test.importExcel2007(is);
 			test.importExcel2003(is);
 		} catch (FileNotFoundException e) {

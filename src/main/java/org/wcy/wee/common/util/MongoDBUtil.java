@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.wcy.wee.common.vo.Pagination;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -283,7 +285,7 @@ public class MongoDBUtil {
 		try {
 			DBCollection collection = getCollection(collectionName);
 			//总记录数据
-			long totalCount = collection.count();
+			long totalCount = collection.count(where);
 			//构造分页对象
 			Pagination pagination = new Pagination(pageNo, pageSize, totalCount);
 			DBCursor cursor = collection.find(where)
