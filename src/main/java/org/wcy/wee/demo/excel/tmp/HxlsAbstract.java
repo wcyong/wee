@@ -20,6 +20,7 @@ import org.apache.poi.hssf.record.BOFRecord;
 import org.apache.poi.hssf.record.BlankRecord;
 import org.apache.poi.hssf.record.BoolErrRecord;
 import org.apache.poi.hssf.record.BoundSheetRecord;
+import org.apache.poi.hssf.record.EOFRecord;
 import org.apache.poi.hssf.record.FormulaRecord;
 import org.apache.poi.hssf.record.LabelRecord;
 import org.apache.poi.hssf.record.LabelSSTRecord;
@@ -29,6 +30,7 @@ import org.apache.poi.hssf.record.RKRecord;
 import org.apache.poi.hssf.record.Record;
 import org.apache.poi.hssf.record.SSTRecord;
 import org.apache.poi.hssf.record.StringRecord;
+import org.apache.poi.hssf.record.chart.BeginRecord;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
@@ -66,6 +68,9 @@ public abstract class HxlsAbstract implements HSSFListener {
 	private List<String> rowlist;
 	@SuppressWarnings( "unused")
 	private String sheetName;
+	private int totalCount;
+	//是否读取当前的sheet
+	private boolean readCurrentSheet = false;
 
 	public HxlsAbstract(POIFSFileSystem fs)
 			throws SQLException {
@@ -106,7 +111,9 @@ public abstract class HxlsAbstract implements HSSFListener {
 			request.addListenerForAllRecords(workbookBuildingListener);
 		}
 
+
 		factory.processWorkbookEvents(request, fs);
+		System.out.println(totalCount);
 	}
 	
 	/**
@@ -136,11 +143,20 @@ public abstract class HxlsAbstract implements HSSFListener {
 				// their BOFRecords, and then knowing that we
 				// process BOFRecords in byte offset order
 				sheetIndex++;
+				
 				if (orderedBSRs == null) {
 					orderedBSRs = BoundSheetRecord
 							.orderByBofPosition(boundSheetRecords);
 				}
 				sheetName = orderedBSRs[sheetIndex].getSheetname();
+				//读取当前的sheet
+				if(sheetName.equals("Sheet1")) {
+					readCurrentSheet = true;
+				} else {
+					readCurrentSheet = false;
+				}
+				System.out.println(sheetName);
+				System.out.println(readCurrentSheet);
 			}
 			break;
 
@@ -165,7 +181,7 @@ public abstract class HxlsAbstract implements HSSFListener {
 
 		case FormulaRecord.sid:
 			FormulaRecord frec = (FormulaRecord) record;
-
+			
 			thisRow = frec.getRow();
 			thisColumn = frec.getColumn();
 
@@ -196,26 +212,29 @@ public abstract class HxlsAbstract implements HSSFListener {
 			break;
 
 		case LabelRecord.sid:
-			LabelRecord lrec = (LabelRecord) record;
-
-			curRow = thisRow = lrec.getRow();
-			thisColumn = lrec.getColumn();
-			value = lrec.getValue().trim();
-			value = value.equals("")?" ":value;
-			this.rowlist.add(thisColumn, value);
+			if(readCurrentSheet) {
+				LabelRecord lrec = (LabelRecord) record;
+				curRow = thisRow = lrec.getRow();
+				thisColumn = lrec.getColumn();
+				value = lrec.getValue().trim();
+				value = value.equals("")?" ":value;
+				this.rowlist.add(thisColumn, value);
+			}
 			break;
 		case LabelSSTRecord.sid:
-			LabelSSTRecord lsrec = (LabelSSTRecord) record;
-
-			curRow = thisRow = lsrec.getRow();
-			thisColumn = lsrec.getColumn();
-			if (sstRecord == null) {
-				rowlist.add(thisColumn, " ");
-			} else {
-				value =  sstRecord
-				.getString(lsrec.getSSTIndex()).toString().trim();
-				value = value.equals("")?" ":value;
-				rowlist.add(thisColumn,value);
+			if(readCurrentSheet) {
+				LabelSSTRecord lsrec = (LabelSSTRecord) record;
+				
+				curRow = thisRow = lsrec.getRow();
+				thisColumn = lsrec.getColumn();
+				if (sstRecord == null) {
+					rowlist.add(thisColumn, " ");
+				} else {
+					value =  sstRecord
+							.getString(lsrec.getSSTIndex()).toString().trim();
+					value = value.equals("")?" ":value;
+					rowlist.add(thisColumn,value);
+				}
 			}
 			break;
 		case NoteRecord.sid:
@@ -227,14 +246,16 @@ public abstract class HxlsAbstract implements HSSFListener {
 			thisStr = '"' + "(TODO)" + '"';
 			break;
 		case NumberRecord.sid:
-			NumberRecord numrec = (NumberRecord) record;
-
-			curRow = thisRow = numrec.getRow();
-			thisColumn = numrec.getColumn();
-			value = formatListener.formatNumberDateCell(numrec).trim();
-			value = value.equals("")?" ":value;
-			// Format
-			rowlist.add(thisColumn, value);
+			if(readCurrentSheet) {
+				NumberRecord numrec = (NumberRecord) record;
+				
+				curRow = thisRow = numrec.getRow();
+				thisColumn = numrec.getColumn();
+				value = formatListener.formatNumberDateCell(numrec).trim();
+				value = value.equals("")?" ":value;
+				// Format
+				rowlist.add(thisColumn, value);
+			}
 			break;
 		case RKRecord.sid:
 			RKRecord rkrec = (RKRecord) record;
@@ -254,10 +275,12 @@ public abstract class HxlsAbstract implements HSSFListener {
 
 		// 空值的操作
 		if (record instanceof MissingCellDummyRecord) {
-			MissingCellDummyRecord mc = (MissingCellDummyRecord) record;
-			curRow = thisRow = mc.getRow();
-			thisColumn = mc.getColumn();
-			rowlist.add(thisColumn," ");
+			if(readCurrentSheet) {
+				MissingCellDummyRecord mc = (MissingCellDummyRecord) record;
+				curRow = thisRow = mc.getRow();
+				thisColumn = mc.getColumn();
+				rowlist.add(thisColumn," ");
+			}
 		}
 
 		// 如果遇到能打印的东西，在这里打印
@@ -276,18 +299,21 @@ public abstract class HxlsAbstract implements HSSFListener {
 
 		// 行结束时的操作
 		if (record instanceof LastCellOfRowDummyRecord) {
-			if (minColumns > 0) {
-				// 列值重新置空
-				if (lastColumnNumber == -1) {
-					lastColumnNumber = 0;
+			if(readCurrentSheet) {
+				if (minColumns > 0) {
+					// 列值重新置空
+					if (lastColumnNumber == -1) {
+						lastColumnNumber = 0;
+					}
 				}
-			}
-			// 行结束时， 调用 optRows() 方法
-			lastColumnNumber = -1;
+				// 行结束时， 调用 optRows() 方法
+				lastColumnNumber = -1;
 			try {
 				optRows(sheetIndex,curRow, rowlist);
 			} catch (SQLException e) {
 				e.printStackTrace();
+			}
+				totalCount++;
 			}
 			rowlist.clear();
 		}

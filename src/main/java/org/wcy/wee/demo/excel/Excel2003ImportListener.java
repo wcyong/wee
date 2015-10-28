@@ -66,14 +66,12 @@ public class Excel2003ImportListener implements HSSFListener {
 			break;
 		//执行行记录事件
 		case RowRecord.sid:
-			System.out.println("=================RowRecord");
 			//开始解析行
 			RowRecord row = (RowRecord)record;
 			System.out.println("first column:"+row.getFirstCol()+"---last column:"+row.getLastCol());
 			break;
 		//SSTRecords store a array of unique strings used in Excel
 		case SSTRecord.sid:
-			System.out.println("=================SSTRecord");
 			//SSTRecords存储了在Excel中使用的所有唯一String的数组
 			sstRecord = (SSTRecord)record;
 			/*for(int i=0; i<sstRecord.getNumUniqueStrings(); i++) {
@@ -83,7 +81,6 @@ public class Excel2003ImportListener implements HSSFListener {
 		//发现数字类型的cell，因为数字和日期都是用这个格式，所以下面一定要判断是不是日期格式，
 		//另外默认的数字也会被视为日期格式，所以如果是数字的话，一定要明确指定格式！！！！！！！
 		case NumberRecord.sid:
-			System.out.println("=================NumberRecord");
 			//数字和日期都是用这个格式，所以下面一定要判断是不是日期格式，
 			//另外默认的数字也会被视为日期格式，所以如果是数字的话，一定要明确指定格式
 			NumberRecord numberRecord = (NumberRecord)record;
@@ -107,7 +104,6 @@ public class Excel2003ImportListener implements HSSFListener {
 			break;
 		//发现字符串类型，这儿要取字符串的值的话，跟据其index去字符串表里读取  
 		case LabelSSTRecord.sid:
-			System.out.println("=================LabelSSTRecord");
 			//解析一个String类型的单元格值（存储在SSTRecord）
 			LabelSSTRecord lrec = (LabelSSTRecord)record;
 			if(lrec.getRow() == 0) {
@@ -126,7 +122,6 @@ public class Excel2003ImportListener implements HSSFListener {
 			break;
 		//解析boolean记录信息
 		case BoolErrRecord.sid:
-			System.out.println("=================BoolErrRecord");
 			BoolErrRecord ber = (BoolErrRecord)record;
 			if(ber.isBoolean()) {
 				if(ber.getRow() == 0) {
@@ -140,12 +135,10 @@ public class Excel2003ImportListener implements HSSFListener {
 			break;
 		//空白记录的信息
 		case BlankRecord.sid:
-			System.out.println("=================BlankRecord");
 			BlankRecord br = (BlankRecord)record;
 			break;
 		//数式
 		case FormulaRecord.sid:
-			System.out.println("=================FormulaRecord");
 			FormulaRecord fr = (FormulaRecord)record;
 			System.out.println(fr.getValue());
 			break;
