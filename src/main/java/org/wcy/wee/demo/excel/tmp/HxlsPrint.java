@@ -14,9 +14,9 @@ public class HxlsPrint extends HxlsAbstract{
 
 	@Override
 	public void optRows(int sheetIndex,int curRow, List<String> rowlist) throws SQLException {
-		/*for (int i = 0 ;i< rowlist.size();i++){
+		for (int i = 0 ;i< rowlist.size();i++){
 			System.out.print("'"+rowlist.get(i)+"',");
-		}*/
+		}
 		System.out.println();
 	}
 	

@@ -1,4 +1,5 @@
 package org.wcy.wee.demo.excel.tmp;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import org.apache.poi.hssf.record.NoteRecord;
 import org.apache.poi.hssf.record.NumberRecord;
 import org.apache.poi.hssf.record.RKRecord;
 import org.apache.poi.hssf.record.Record;
+import org.apache.poi.hssf.record.RowRecord;
 import org.apache.poi.hssf.record.SSTRecord;
 import org.apache.poi.hssf.record.StringRecord;
 import org.apache.poi.hssf.record.chart.BeginRecord;
@@ -66,14 +68,13 @@ public abstract class HxlsAbstract implements HSSFListener {
 
 	private int curRow;
 	private List<String> rowlist;
-	@SuppressWarnings( "unused")
+	@SuppressWarnings("unused")
 	private String sheetName;
 	private int totalCount;
-	//是否读取当前的sheet
+	// 是否读取当前的sheet
 	private boolean readCurrentSheet = false;
 
-	public HxlsAbstract(POIFSFileSystem fs)
-			throws SQLException {
+	public HxlsAbstract(POIFSFileSystem fs) throws SQLException {
 		this.fs = fs;
 		this.output = System.out;
 		this.minColumns = -1;
@@ -81,23 +82,22 @@ public abstract class HxlsAbstract implements HSSFListener {
 		this.rowlist = new ArrayList<String>();
 	}
 
-	public HxlsAbstract(String filename) throws IOException,
-			FileNotFoundException, SQLException {
+	public HxlsAbstract(String filename) throws IOException, FileNotFoundException, SQLException {
 		this(new POIFSFileSystem(new FileInputStream(filename)));
 	}
-	
-	//excel记录行操作方法，以行索引和行元素列表为参数，对一行元素进行操作，元素为String类型
-//	public abstract void optRows(int curRow, List<String> rowlist) throws SQLException ;
-	
-	//excel记录行操作方法，以sheet索引，行索引和行元素列表为参数，对sheet的一行元素进行操作，元素为String类型
-	public abstract void optRows(int sheetIndex,int curRow, List<String> rowlist) throws SQLException;
-	
+
+	// excel记录行操作方法，以行索引和行元素列表为参数，对一行元素进行操作，元素为String类型
+	// public abstract void optRows(int curRow, List<String> rowlist) throws
+	// SQLException ;
+
+	// excel记录行操作方法，以sheet索引，行索引和行元素列表为参数，对sheet的一行元素进行操作，元素为String类型
+	public abstract void optRows(int sheetIndex, int curRow, List<String> rowlist) throws SQLException;
+
 	/**
 	 * 遍历 excel 文件
 	 */
 	public void process() throws IOException {
-		MissingRecordAwareHSSFListener listener = new MissingRecordAwareHSSFListener(
-				this);
+		MissingRecordAwareHSSFListener listener = new MissingRecordAwareHSSFListener(this);
 		formatListener = new FormatTrackingHSSFListener(listener);
 
 		HSSFEventFactory factory = new HSSFEventFactory();
@@ -106,16 +106,26 @@ public abstract class HxlsAbstract implements HSSFListener {
 		if (outputFormulaValues) {
 			request.addListenerForAllRecords(formatListener);
 		} else {
-			workbookBuildingListener = new SheetRecordCollectingListener(
-					formatListener);
+			workbookBuildingListener = new SheetRecordCollectingListener(formatListener);
 			request.addListenerForAllRecords(workbookBuildingListener);
 		}
-
 
 		factory.processWorkbookEvents(request, fs);
 		System.out.println(totalCount);
 	}
-	
+
+	/**
+	 * 是否路过指定的行
+	 * @param curRow
+	 * @return	false表示跳过，true表示不跳过
+	 */
+	public boolean isSkip(int curRow) {
+		if (curRow <= 8 && curRow >= 2) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * HSSFListener 监听方法，处理 Record
 	 */
@@ -125,7 +135,7 @@ public abstract class HxlsAbstract implements HSSFListener {
 		int thisColumn = -1;
 		String thisStr = null;
 		String value = null;
-		
+
 		switch (record.getSid()) {
 		case BoundSheetRecord.sid:
 			boundSheetRecords.add(record);
@@ -135,31 +145,28 @@ public abstract class HxlsAbstract implements HSSFListener {
 			if (br.getType() == BOFRecord.TYPE_WORKSHEET) {
 				// Create sub workbook if required
 				if (workbookBuildingListener != null && stubWorkbook == null) {
-					stubWorkbook = workbookBuildingListener
-							.getStubHSSFWorkbook();
+					stubWorkbook = workbookBuildingListener.getStubHSSFWorkbook();
 				}
 
 				// Works by ordering the BSRs by the location of
 				// their BOFRecords, and then knowing that we
 				// process BOFRecords in byte offset order
 				sheetIndex++;
-				
+
 				if (orderedBSRs == null) {
-					orderedBSRs = BoundSheetRecord
-							.orderByBofPosition(boundSheetRecords);
+					orderedBSRs = BoundSheetRecord.orderByBofPosition(boundSheetRecords);
 				}
 				sheetName = orderedBSRs[sheetIndex].getSheetname();
-				//读取当前的sheet
-				if(sheetName.equals("Sheet1")) {
+				// 读取当前的sheet
+				if (sheetName.equals("Sheet1")) {
 					readCurrentSheet = true;
 				} else {
 					readCurrentSheet = false;
 				}
-				System.out.println(sheetName);
-				System.out.println(readCurrentSheet);
 			}
 			break;
-
+		case RowRecord.sid:
+			break;
 		case SSTRecord.sid:
 			sstRecord = (SSTRecord) record;
 			break;
@@ -181,7 +188,7 @@ public abstract class HxlsAbstract implements HSSFListener {
 
 		case FormulaRecord.sid:
 			FormulaRecord frec = (FormulaRecord) record;
-			
+
 			thisRow = frec.getRow();
 			thisColumn = frec.getColumn();
 
@@ -196,8 +203,7 @@ public abstract class HxlsAbstract implements HSSFListener {
 					thisStr = formatListener.formatNumberDateCell(frec);
 				}
 			} else {
-				thisStr = '"' + HSSFFormulaParser.toFormulaString(stubWorkbook,
-						frec.getParsedExpression()) + '"';
+				thisStr = '"' + HSSFFormulaParser.toFormulaString(stubWorkbook, frec.getParsedExpression()) + '"';
 			}
 			break;
 		case StringRecord.sid:
@@ -212,28 +218,31 @@ public abstract class HxlsAbstract implements HSSFListener {
 			break;
 
 		case LabelRecord.sid:
-			if(readCurrentSheet) {
+			if (readCurrentSheet) {
 				LabelRecord lrec = (LabelRecord) record;
 				curRow = thisRow = lrec.getRow();
-				thisColumn = lrec.getColumn();
-				value = lrec.getValue().trim();
-				value = value.equals("")?" ":value;
-				this.rowlist.add(thisColumn, value);
+				if (isSkip(curRow)) {
+					thisColumn = lrec.getColumn();
+					value = lrec.getValue().trim();
+					value = value.equals("") ? " " : value;
+					this.rowlist.add(thisColumn, value);
+				}
 			}
 			break;
 		case LabelSSTRecord.sid:
-			if(readCurrentSheet) {
+			if (readCurrentSheet) {
 				LabelSSTRecord lsrec = (LabelSSTRecord) record;
-				
+
 				curRow = thisRow = lsrec.getRow();
 				thisColumn = lsrec.getColumn();
-				if (sstRecord == null) {
-					rowlist.add(thisColumn, " ");
-				} else {
-					value =  sstRecord
-							.getString(lsrec.getSSTIndex()).toString().trim();
-					value = value.equals("")?" ":value;
-					rowlist.add(thisColumn,value);
+				if (isSkip(curRow)) {
+					if (sstRecord == null) {
+						rowlist.add(thisColumn, " ");
+					} else {
+						value = sstRecord.getString(lsrec.getSSTIndex()).toString().trim();
+						value = value.equals("") ? " " : value;
+						rowlist.add(thisColumn, value);
+					}
 				}
 			}
 			break;
@@ -246,15 +255,17 @@ public abstract class HxlsAbstract implements HSSFListener {
 			thisStr = '"' + "(TODO)" + '"';
 			break;
 		case NumberRecord.sid:
-			if(readCurrentSheet) {
+			if (readCurrentSheet) {
 				NumberRecord numrec = (NumberRecord) record;
-				
+
 				curRow = thisRow = numrec.getRow();
 				thisColumn = numrec.getColumn();
-				value = formatListener.formatNumberDateCell(numrec).trim();
-				value = value.equals("")?" ":value;
-				// Format
-				rowlist.add(thisColumn, value);
+				if (isSkip(curRow)) {
+					value = formatListener.formatNumberDateCell(numrec).trim();
+					value = value.equals("") ? " " : value;
+					// Format
+					rowlist.add(thisColumn, value);
+				}
 			}
 			break;
 		case RKRecord.sid:
@@ -275,11 +286,13 @@ public abstract class HxlsAbstract implements HSSFListener {
 
 		// 空值的操作
 		if (record instanceof MissingCellDummyRecord) {
-			if(readCurrentSheet) {
+			if (readCurrentSheet) {
 				MissingCellDummyRecord mc = (MissingCellDummyRecord) record;
 				curRow = thisRow = mc.getRow();
-				thisColumn = mc.getColumn();
-				rowlist.add(thisColumn," ");
+				if (isSkip(curRow)) {
+					thisColumn = mc.getColumn();
+					rowlist.add(thisColumn, " ");
+				}
 			}
 		}
 
@@ -299,21 +312,23 @@ public abstract class HxlsAbstract implements HSSFListener {
 
 		// 行结束时的操作
 		if (record instanceof LastCellOfRowDummyRecord) {
-			if(readCurrentSheet) {
-				if (minColumns > 0) {
-					// 列值重新置空
-					if (lastColumnNumber == -1) {
-						lastColumnNumber = 0;
+			if (readCurrentSheet) {
+				if(isSkip(curRow)) {
+					if (minColumns > 0) {
+						// 列值重新置空
+						if (lastColumnNumber == -1) {
+							lastColumnNumber = 0;
+						}
 					}
+					// 行结束时， 调用 optRows() 方法
+					lastColumnNumber = -1;
+					try {
+						optRows(sheetIndex, curRow, rowlist);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					totalCount++;
 				}
-				// 行结束时， 调用 optRows() 方法
-				lastColumnNumber = -1;
-			try {
-				optRows(sheetIndex,curRow, rowlist);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-				totalCount++;
 			}
 			rowlist.clear();
 		}
