@@ -1,6 +1,7 @@
-org\wcy\wee\memcached\MemcachedTest.class
-org\wcy\wee\mongodb\TestMongoDBReplset.class
-org\wcy\wee\T.class
-org\wcy\wee\TestCsv.class
 org\wcy\wee\UserServerTest.class
+org\wcy\wee\memcached\MemcachedTest.class
 org\wcy\wee\mongodb\TestMongodb.class
+org\wcy\wee\TestCsv.class
+org\wcy\wee\mongodb\TestMongoDBReplset.class
+org\wcy\wee\redis\RedisTest.class
+org\wcy\wee\T.class
