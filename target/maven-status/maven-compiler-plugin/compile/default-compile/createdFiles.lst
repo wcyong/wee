@@ -78,6 +78,7 @@ org\wcy\wee\demo\excel\Excel2003ImportListener.class
 org\wcy\wee\common\vo\EasyuiDataGrid.class
 org\wcy\wee\weixin\quartz\WeixinQuartzJob.class
 org\wcy\wee\demo\thread\Demo06$1.class
+org\wcy\wee\common\util\StreamUtil.class
 org\wcy\wee\weixin\controller\WeixinController.class
 org\wcy\wee\demo\ssm\model\ItemsExample$GeneratedCriteria.class
 org\wcy\wee\common\vo\Pagination.class
