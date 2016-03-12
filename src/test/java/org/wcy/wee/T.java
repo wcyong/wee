@@ -16,6 +16,7 @@ public class T {
 	}
 	
 	private static InetAddress getAddress() {
+		
         try {
             for (Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces(); interfaces.hasMoreElements();) {
                 NetworkInterface networkInterface = interfaces.nextElement();

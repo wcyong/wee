@@ -1,6 +1,7 @@
 package org.wcy.wee;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.wcy.wee.common.util.PropUtil;
@@ -13,8 +14,13 @@ public class Tv {
 	
 	@Test
 	public void testGenTreeGridJson() {
-		String value = PropUtil.getValue("jdbc.driver");
-		System.out.println(value);
+		/*String value = PropUtil.getValue("jdbc.driver");
+		System.out.println(value);*/
+		String uuid = UUID.randomUUID().toString();
+		uuid = "630874d8-d335-4ad1-ad2d-19780c723a3c";
+		System.out.println(uuid);
+		System.out.println(System.currentTimeMillis());
+		System.out.println(uuid.hashCode()+System.currentTimeMillis());
 	}
 	
 	

@@ -9,6 +9,8 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+	<!-- http://www.yangchangming.com/blog/show/64 -->
+	
 	<!-- 打开Spring的Annotation支持 -->
 	<context:annotation-config />
 	<!-- 设定Spring 去哪些包中找Annotation -->
@@ -55,6 +57,18 @@
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
 		<property name="typeAliasesPackage" value="org.wcy.wee.demo.ssm.model,org.wcy.wee.sys.model,org.wcy.wee.weixin.model,org.wcy.wee.log.model"></property>
+		<!-- mybatis分页插件 -->
+		<property name="plugins">
+		    <array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+						</value>
+					</property>
+				</bean>
+			</array>
+	  	</property>
 	</bean>
 
 	<!-- mapper扫描器 -->

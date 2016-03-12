@@ -9,7 +9,7 @@ import org.wcy.wee.demo.ssm.model.User;
 import org.wcy.wee.demo.ssm.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserMapper userMapper;

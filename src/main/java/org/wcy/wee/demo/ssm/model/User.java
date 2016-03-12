@@ -83,5 +83,11 @@ public class User implements Serializable{
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", birthday=" + birthday + ", sex=" + sex + ", address="
+				+ address + ", pic=" + pic + "]";
+	}
     
 }

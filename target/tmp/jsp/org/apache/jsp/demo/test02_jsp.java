@@ -3,6 +3,8 @@ package org.apache.jsp.demo;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public final class test02_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -42,27 +44,47 @@ public final class test02_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+
+	Date s = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+	String day = sdf.format(s);
+
+      out.write("\r\n");
       out.write("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\r\n");
       out.write("<html>\r\n");
       out.write("<head>\r\n");
       out.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
       out.write("<title>Insert title here</title>\r\n");
-      out.write("<link href=\"");
-      out.print(request.getContextPath() );
-      out.write("/resources/My97DatePicker/skin/WdatePicker.css\" rel=\"stylesheet\">\r\n");
+      out.write("<link\r\n");
+      out.write("\thref=\"");
+      out.print(request.getContextPath());
+      out.write("/resources/My97DatePicker/skin/WdatePicker.css\"\r\n");
+      out.write("\trel=\"stylesheet\">\r\n");
       out.write("<script type=\"text/javascript\"\r\n");
-      out.write("\t\tsrc=\"");
+      out.write("\tsrc=\"");
       out.print(request.getContextPath());
       out.write("/resources/My97DatePicker/WdatePicker.js\"></script>\r\n");
+      out.write("\t<script type=\"text/javascript\">\r\n");
+      out.write("\t\t$(function(){\r\n");
+      out.write("\t\t\t$(\"#startDate\").val(\"20160208\");\r\n");
+      out.write("\t\t\t$(\"#startDate\").attr(\"onfocus\", \"WdatePicker({skin:'whyGreen',dateFmt:'yyyyMM'})\");\r\n");
+      out.write("\t\t});\r\n");
+      out.write("\t</script>\r\n");
       out.write("</head>\r\n");
       out.write("<body>\r\n");
-      out.write("<div>\r\n");
+      out.write("\t<div>\r\n");
       out.write("\t\t<p>\r\n");
       out.write("\t\t\t<input type=\"text\" class=\"Wdate\" id=\"d122\"\r\n");
       out.write("\t\t\t\tonfocus=\"WdatePicker({isShowWeek:true,onpicked:function(){$dp.$('d122_1').value=$dp.cal.getP('W','W');}})\"\r\n");
       out.write("\t\t\t\trealvalue=\"2016-02-17\"> &nbsp;&nbsp; 您选择了第 <input\r\n");
       out.write("\t\t\t\ttype=\"text\" id=\"d122_1\" size=\"3\">\r\n");
       out.write("\t\t</p>\r\n");
+      out.write("\t\t<p>\r\n");
+      out.write("\t\t<input type=\"text\" class=\"Wdate\" id=\"startDate\" value='");
+      out.print(day);
+      out.write("' onfocus=\"WdatePicker({skin:'whyGreen',dateFmt:'yyyyMMdd'})\"/>\r\n");
       out.write("\t</div>\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
