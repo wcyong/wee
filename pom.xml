@@ -308,6 +308,11 @@
 			<version>5.5.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.wltea.analyzer</groupId>
+			<artifactId>IKAnalyzer</artifactId>
+			<version>5.5.0</version>
+		</dependency>
 
 
 

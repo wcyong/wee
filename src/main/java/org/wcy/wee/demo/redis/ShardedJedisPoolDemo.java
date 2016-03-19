@@ -3,7 +3,6 @@ package org.wcy.wee.demo.redis;
 import java.util.ArrayList;
 import java.util.List;
 
-import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
