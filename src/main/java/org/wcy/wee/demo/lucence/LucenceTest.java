@@ -29,6 +29,14 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.WildcardQuery;
+import org.apache.lucene.search.highlight.Formatter;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.Scorer;
+import org.apache.lucene.search.highlight.SimpleFragmenter;
+import org.apache.lucene.search.highlight.SimpleHTMLEncoder;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.junit.Test;
@@ -188,7 +196,7 @@ public class LucenceTest {
 		indexWriter.close();
 
 	}
-	
+
 	/**
 	 * 分词搜索
 	 * 
@@ -226,6 +234,7 @@ public class LucenceTest {
 
 		}
 	}
+
 	/**
 	 * 造数据
 	 * 
@@ -355,5 +364,69 @@ public class LucenceTest {
 			count++;
 
 		}
+	}
+
+	/**
+	 * 分页并且高亮
+	 * 
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws InvalidTokenOffsetsException 
+	 */
+	@Test
+	public void testSearch5() throws IOException, ParseException, InvalidTokenOffsetsException {
+		// FSDirectory文件系统的位置
+		Directory directory = FSDirectory.open(Paths.get("index"));
+		IndexSearcher indexSearcher = new IndexSearcher(DirectoryReader.open(directory));
+
+		String keywords = "iPhone";
+
+		// 分页信息
+		Integer page = 2;
+		Integer pageSize = 20;
+		Integer start = (page - 1) * pageSize;
+		Integer end = start + pageSize;
+
+		Analyzer analyzer = new IKAnalyzer();
+
+		// 构建查询对象
+		Query query = new QueryParser("title", analyzer).parse(keywords);
+
+		// 定义高亮组件
+		Formatter formatter = new SimpleHTMLFormatter("<span class='red'>", "</span>");
+		// 构建Scorer用于选取最佳切片
+		Scorer scorer = new QueryScorer(query);
+		// 构建Fragmenter对象，用于文档切片
+		Highlighter highlighter = new Highlighter(formatter, scorer);
+		highlighter.setTextFragmenter(new SimpleFragmenter(100));
+		highlighter.setEncoder(new SimpleHTMLEncoder());
+
+		// 搜索
+		TopDocs topDocs = indexSearcher.search(query, end);
+
+		Integer totalPage = ((topDocs.totalHits) / pageSize == 0) ? topDocs.totalHits / pageSize
+				: ((topDocs.totalHits / pageSize) + 1);
+		System.out.println(keywords + "搜索到" + topDocs.totalHits + "条数据，页数" + page + "/" + totalPage);
+
+		ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+		for (int i = start; i < end; i++) {
+			ScoreDoc sd = scoreDocs[i];
+			// 获取到文档id
+			Integer docId = sd.doc;
+			Document document = indexSearcher.doc(docId);
+			System.out.println("id：" + document.get("id"));
+			//没有高亮
+			String title = document.get("title");
+			System.out.println("标题：" + title);
+			
+			//获取到高亮title
+			title = highlighter.getBestFragment(analyzer, "title", title);
+			System.out.println("高亮标题：" + title);
+			
+			System.out.println("价格：" + document.get("price"));
+			System.out.println("图片：" + document.get("image"));
+			System.out.println("状态：" + document.get("status"));
+		}
+
 	}
 }
