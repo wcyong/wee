@@ -7,11 +7,11 @@ import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.wcy.wee.common.web.util.MemcachedUtil;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.whalin.MemCached.MemCachedClient;
 
 /**
@@ -104,7 +104,7 @@ public class MemcachedAspect {
 		
 		//将参数转换为json
 		ObjectMapper  om = new ObjectMapper();
-		om.setSerializationInclusion(Inclusion.NON_NULL);
+		om.setSerializationInclusion(JsonInclude.Include.NON_NULL);//(Inclusion.NON_NULL);
 		
 		for(Object arg : args){
 			//流

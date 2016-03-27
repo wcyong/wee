@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+           http://www.springframework.org/schema/rabbit/spring-rabbit-1.5.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- 定义RabbitMQ的连接工厂 -->
+	<rabbit:connection-factory id="connectionFactory"
+		host="127.0.0.1" port="5672" username="wee" password="0030"
+		virtual-host="/wee" />
+
+	<!-- 定义Rabbit模板，指定连接工厂以及定义exchange -->
+	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory"
+		exchange="topicExchange" />
+	
+	<!-- MQ的管理，包括队列、交换器等 -->
+	<!-- <rabbit:admin connection-factory="connectionFactory"/> -->
+	
+	<rabbit:queue name="webQueue" auto-declare="true"/>
+	<rabbit:queue name="searchQueue" auto-declare="true"/>
+	
+	<!-- 定义交换机 -->
+	<rabbit:topic-exchange name="topicExchange" auto-declare="true">
+		<rabbit:bindings>
+			<rabbit:binding pattern="item.update" queue="webQueue"/>
+			<rabbit:binding pattern="item.#" queue="searchQueue"/>
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+	
+	<rabbit:listener-container connection-factory="connectionFactory">
+		<rabbit:listener ref="itemWeb" method="listen" queues="webQueue"/>
+		<rabbit:listener ref="itemSearch" method="listen" queues="searchQueue"/>
+	</rabbit:listener-container>
+	
+	<bean class="org.wcy.wee.demo.rabbitmq.proj.ItemWeb" id="itemWeb"/>
+	<bean class="org.wcy.wee.demo.rabbitmq.proj.ItemSearch" id="itemSearch"/>
+
+</beans> 
