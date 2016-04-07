@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jQuery EasyUI</title>
+<link rel="stylesheet" type="text/css" href="jquery-easyui-1.4.5/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="jquery-easyui-1.4.5/themes/icon.css">
+<script type="text/javascript" src="jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="datagrid-test.js"></script>
+<script>
+	var datagrid_data = {
+		"total" : 3,
+		"rows" : [ {
+			"id" : 1,
+			"unitCost" : 10.0,
+			"listPrice" : 16.5,
+			"attr1" : "Large",
+			"name" : "HM4s"
+		}, {
+			"id" : 2,
+			"unitCost" : 12.0,
+			"listPrice" : 18.5,
+			"attr1" : "Spotted Adult Female",
+			"name" : "HMnote"
+		}, {
+			"id" : 3,
+			"unitCost" : 15.0,
+			"listPrice" : 22.0,
+			"attr1" : "wwss",
+			"name" : "HWp8"
+		} ]
+	};
+	var products = [ {
+		id : 5,
+		name : "xxx",
+		unitCost : 25,
+		listPrice : 13,
+		attr1 : 'Koi'
+	}, {
+		id : 6,
+		name : "apple pro",
+		unitCost : 26,
+		listPrice : 14,
+		attr1 : 'Dalmation'
+	}, {
+		id : 7,
+		name : "thinkpad",
+		unitCost : 27,
+		listPrice : 15,
+		attr1 : 'Rattlesnake'
+	}, {
+		id : 8,
+		name : "lenovo",
+		unitCost : 28,
+		listPrice : 16,
+		attr1 : 'Iguana'
+	} ];
+	$(function() {
+		//为document绑定click事件
+		$(document).on("click", function(e) {
+			//结束datagrid editor编辑
+			grid.datagrid('endEdit', editRowIndex);
+			grid.datagrid('refreshRow', editRowIndex);
+			//editIndex设置为undefined,否则再次点击同一表格时，editIndex==index，不会进入编辑状态
+			editIndex = undefined;
+		});
+		var grid = $('#tt').datagrid({
+			title : 'Editable DataGrid',
+			iconCls : 'icon-edit',
+			width : 660,
+			height : 250,
+			singleSelect : true,
+			idField : 'itemid',
+			//url : '/product',
+			//url:'datagrid_data.json',
+			columns : [ [ {
+				field : 'id',
+				title : 'Product',
+				width : 100,
+				editor : {
+					type : 'combobox',
+					options : {
+						valueField : 'id',
+						textField : 'name',
+						data : products,
+						required : true,
+						onSelect : function(record) {
+							var id = record.id;
+							var name = record.name;
+							var unitCost = record.unitCost;
+							var listPrice = record.listPrice;
+							var attr1 = record.attr1;
+
+							//设置列的值
+							EasyUIDataGrid.setFieldValue("name", name, editRowIndex, grid);
+							EasyUIDataGrid.setFieldValue("listPrice", listPrice, editRowIndex, grid);
+							EasyUIDataGrid.setFieldValue("unitCost", unitCost, editRowIndex, grid);
+							EasyUIDataGrid.setFieldValue("attr1", attr1, editRowIndex, grid);
+
+						}
+					}
+				}
+			},
+			//{field:'name',title:'name',width:150,editor:'text'},
+			{field:'name',title:'name',width:150},
+			//{field:'listPrice',title:'List Price',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}},
+			{field:'listPrice',title:'List Price',width:80,align:'right'},
+			//{field:'unitCost',title:'Unit Cost',width:80,align:'right',editor:'numberbox'},
+			{field:'unitCost',title:'Unit Cost',width:80,align:'right'},
+			{field:'attr1',title:'Attribute',width:150,editor:'text'}
+			]],
+			onBeforeEdit : function(index, row) {
+				row.editing = true;
+				$('#tt').datagrid('refreshRow', index);
+			},
+			onAfterEdit : function(index, row) {
+				row.editing = false;
+				$('#tt').datagrid('refreshRow', index);
+			},
+			onCancelEdit : function(index, row) {
+				row.editing = false;
+				$('#tt').datagrid('refreshRow', index);
+			},
+			onClickCell : onClickRow
+		});
+
+		$('#tt').datagrid("loadData",datagrid_data);
+	});
+
+	//
+	var editIndex = undefined;
+	//当前编辑行的行号
+	var editRowIndex;
+	function endEditing() {
+		if (editIndex == undefined) {
+			return true
+		}
+		if ($('#tt').datagrid('validateRow', editIndex)) {
+			$('#tt').datagrid('endEdit', editIndex);
+			editIndex = undefined;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function onClickRow(index, field) {
+		//阻止事件冒泡,不触发document上的click事件,
+		//即在编辑表格不会触发document上的结束编辑事件，点击空白区域会结束编辑
+		EasyUIDataGrid.stopPropagation();
+
+		editRowIndex = index;
+		if (editIndex != index) {
+			if (endEditing()) {
+				$('#tt').datagrid('selectRow', index).datagrid('beginEdit', index);
+				var ed = $('#tt').datagrid('getEditor', {
+					index : index,
+					field : field
+				});
+				if (ed) {
+					($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+				}
+				editIndex = index;
+			} else {
+				setTimeout(function() {
+					$('#tt').datagrid('selectRow', editIndex);
+				}, 0);
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>Editable DataGrid</h1>
+
+	<table id="tt"></table>
+
+</body>
+</html>
