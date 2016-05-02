@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	//模拟java里面Map
+	
+	function Map() {
+		var obj = {};
+		this.put = function(key, value) {
+			obj[key] = value;
+		}
+		this.get = function(key) {
+			if(obj[key] || obj[key]===0 ||obj[key]===false) {
+				return obj[key];
+			} else {
+				return null;
+			}
+		}
+		this.size = function() {
+			var count = 0;
+			for(var attr in obj) {
+				count ++;
+			}
+			return count;
+		}
+		this.remove = function(key) {
+			if(obj[key] || obj[key]===0 ||obj[key]===false) {
+				delete obj[key];
+			}
+		}
+		this.eachMap = function(fn) {
+			for(var attr in obj) {
+				fn(attr,obj[attr]);
+			}
+		}
+	}
+	
+	var m = new Map();
+	m.put("01","wwss");
+	m.put("02",0);
+	m.put("03",true);
+	m.put("04",new Date());
+	m.put("05",new Date());
+	console.log(m.size());
+	console.log(m.get("01"));
+	m.remove("04");
+	console.log(m.get("04"));
+	
+	m.eachMap(function(key,value){
+		console.log(key+"----"+value);
+	});
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

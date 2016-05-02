@@ -1,5 +1,6 @@
 package org.wcy.wee;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,11 +17,11 @@ public class Tv {
 	public void testGenTreeGridJson() {
 		/*String value = PropUtil.getValue("jdbc.driver");
 		System.out.println(value);*/
-		String uuid = UUID.randomUUID().toString();
+		/*String uuid = UUID.randomUUID().toString();
 		uuid = "630874d8-d335-4ad1-ad2d-19780c723a3c";
 		System.out.println(uuid);
 		System.out.println(System.currentTimeMillis());
-		System.out.println(uuid.hashCode()+System.currentTimeMillis());
+		System.out.println(uuid.hashCode()+System.currentTimeMillis());*/
 	}
 	
 	

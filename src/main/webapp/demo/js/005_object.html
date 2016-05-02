@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	//创建对象
+	//var obj = new Object();
+	var obj = {};
+	obj.name = "wwss";
+	obj.age = 26;
+	obj.sex = "男";
+	obj['birthday'] = "2016";
+	obj.say = function() {
+		console.log("hello world");
+	}
+	
+	
+	//访问对象的属性或者方法
+	console.log(obj);
+	console.log(obj.name+"----"+obj.age);
+	console.log(obj['name']+"----"+obj['age']);
+	obj.say();
+	
+	//删除对象的属性或者方法
+	/* delete obj.sex;
+	console.log(obj);
+	delete obj.say;
+	console.log(obj); */
+	
+	
+	//遍历对象
+	for(var attr in obj) {
+		console.log(attr);
+		console.log(obj[attr]);
+	}
+	
+	//Object每个实例都会具有下列属性和方法:
+	//constructor 保存对象的创建函数
+	console.log(obj.constructor);
+	var arr = [];
+	console.log(arr.constructor);
+	
+	//hasOwnProperty(propertyName)用于检测给定的属性在当前对象实例中是否存在
+	console.log(obj.hasOwnProperty("age"));
+	
+	//isPrototypeOf(Object)用于检查传入的对象是否是另一个对象的原型
+	
+	//propertyIsEnumerable(propertyName)检查给定的属性是否能用for-in来枚举
+	console.log(obj.propertyIsEnumerable("name"));
+	
+	//toLocaleString()返回对象字符串表示
+	
+	//toString()
+	
+	//valueOf()
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

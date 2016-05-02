@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var arr = [1,2,3,4,5,4,3,2,1];
+	
+	//根据内容返回索引位置index从0开始
+	var index = arr.indexOf(4);
+	console.log(index);
+	//第一个参数表示起始位置，第二个参数表示值
+	var index = arr.indexOf(4,4);
+	console.log(index);
+	//他们查找数组比较的时候使用的是"==="
+	
+	
+	var index = arr.lastIndexOf(2);
+	console.log(index);
+	
+	/***********
+	every:对数组每一个元素进行一个函数运行，如果都返回true,最后则返回true,如果有一个返回false,则最后返回false
+	filter:对数组的每一个元素进行一个函数运行，给定的函数把过滤后的结果返回
+	forEach:循环数组每一项的值，并执行一个方法
+	map:对数组每一个元素进行一个函数运行，可以经过函数执行完毕后，把新的结果返回
+	some：对数组每一个元素进行一个函数运行，如果都返回false,最后则返回false,如果有一个返回true,则最后返回true
+	*****************/
+	
+	var result = arr.every(function(item,index,array){
+		return item > 2;
+	});
+	console.log(result);
+	
+	var result = arr.filter(function(item,index,array){
+		return item > 2;
+	});
+	console.log(result);
+	
+	arr.forEach(function(item,index,array){
+		//console.log(item);
+	});
+	
+	var result = arr.map(function(item,index,array){
+		return item * 3;
+	});
+	console.log(result);
+	
+	var result = arr.some(function(item,index,array){
+		return item > 12;
+	});
+	console.log(result);
+	
+	
+	/**********reduce,reduceRight****************/
+	
+	//前一个值，当前值，索引位置，数组
+	var result = arr.reduce(function(prev,cur,index,array) {
+		return prev + cur;
+	});
+	console.log(result);
+	
+	//从右边开始遍历
+	var result = arr.reduceRight(function(prev,cur,index,array) {
+		return prev + cur;
+	});
+	console.log(result);
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

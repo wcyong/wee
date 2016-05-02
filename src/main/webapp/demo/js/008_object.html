@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	//Global全局的，终极的，兜底的对象（不存在的）
+	
+	var uri = "http://www.nekas.cn";
+	
+	var r1 = encodeURI(uri);//不对会: //编码
+	var r2 = encodeURIComponent(uri);//常用方法(任何不标准的文件都会进行编码)
+	console.log(r1);
+	console.log(r2);
+	
+	console.log(decodeURI(r1));
+	console.log(decodeURIComponent(r2));
+	
+	
+	//eval  无形的javascript解析器
+	var str1 = "var a = 10;var b = 20;";
+	eval(str1);
+	console.log(a + b);
+	
+	var str2 = "var a = ['a','b','c','d']";
+	eval(str2);
+	console.log(a[2]);
+
+	var strObj = "{name:'wwss',age:26}";
+	var obj = eval('('+strObj+')');
+	console.log(obj.name);
+	
+	
+	var num1 = parseInt('10');
+	var num2 = parseFloat('12.5');
+	console.log(num1);
+	console.log(num2);
+	
+	console.log(typeof num1);
+	console.log(typeof num2);
+	
+	
+	//escape,unescape	URI转码
+	var s1 = "你好";
+	var rr1 = escape(s1);
+	console.log(rr1);
+	var rr2 = unescape(rr1);
+	console.log(rr2);
+	
+	
+	//isNaN 如果不是number类型，返回true,如果是number类型返回false
+	var r1 = isNaN(1);
+	//var r2 = isNaN("2");//会进行类型自动转换
+	var r2 = isNaN("a");
+	console.log(r1);
+	console.log(r2);
+	
+	//在js里面，只有NaN 自己不等于自己本身的
+	if(NaN == NaN) {
+		console.log("相等");
+	} else {
+		console.log("不等");
+	}
+	
+	
+	
+	/*****************************************/
+	var date = new Date();
+	console.log(date);
+	var year = date.getFullYear();
+	var mon = date.getMonth() + 1;
+	var dd = date.getDate();
+	var hours = date.getHours();
+	var min = date.getMinutes();
+	var sc = date.getSeconds();
+	/* console.log(year);
+	console.log(mon);
+	console.log(dd);
+	console.log(hours);
+	console.log(min);
+	console.log(sc); */
+	document.write("现在是:"+year+"年"+mon+"月"+dd+"日"+" "+hours+":"+min+":"+sc +" "+date.getDay());
+	
+	
+	//+号会转换成number类型
+	var d = +new Date();
+	console.log(typeof d);
+	
+	
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

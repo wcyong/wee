@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	//全局变量和局部变量
+	
+	var a = 3;//全局变量
+	function test() {
+		var a = 2;//局部变量
+		alert(a);
+		c = 5;//全局变量
+	}
+	//alert(c);//c is not defined
+	alert(a);
+	test();
+	alert(a);
+	alert(c);//5
+	
+	
+	//==表示要以经过自动转换，比较的是值
+	//===表示要以经过自动转换，先比较值，再比较数据类型
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
