@@ -5,10 +5,29 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	
-	function test() {
-		
+	function test1() {
 	}
 	console.log(typeof test);
+	
+	//函数也可以作为参数
+	function test1(aa) {
+		aa();
+	}
+	function test2() {
+		console.log("exec");
+	}
+	test2();
+	
+	
+	//函数可以嵌套
+	function test3() {
+		
+		function test4() {
+			console.log("test4");
+		}
+		test4();
+	}
+	test3();
 </script>
 </head>
 <body>
