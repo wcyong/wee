@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	//实现一个Array each方法，能遍历多维数组
+	var arr = [1,2,3,4,5];
+	var arr = [1,2,3,[4,[5,[6]]]];
+	
+	Array.prototype.each = function(fn) {
+		try{
+			//1.遍历数组的每一项
+			this.i || (this.i = 0);//记录当前元素遍历的元素位置
+			//数组长度大于0，并且参数是一个函数
+			if(this.length > 0 && fn.constructor == Function) {
+				//循环遍历数组的每一项
+				while(this.i < this.length) {
+					//获取数组的每一项
+					var item = this[this.i];
+					//如果当前元素获取到，并且当前元素是数组
+					if(item && item.constructor == Array) {
+						//递归操作
+						item.each(fn);
+					} else {
+						//如果不是数组，即单个元素
+						//执行传递的函数，把当前的元素传递给fn函数
+						fn.apply(item,[item]);//执行函数
+					}
+					
+					this.i++;
+				}
+				this.i = null;//释放内存
+			}
+			
+		}catch(ex){
+			//do something
+		}
+		return this;
+	}
+	
+	arr.each(function(item){
+		console.log(item);
+	});
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

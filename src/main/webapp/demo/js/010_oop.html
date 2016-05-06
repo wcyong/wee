@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	var obj = new Object();
+	obj.name = "wwss";
+	obj.sex = "男";
+	obj.sayName = function() {
+		console.log(this.name);
+	}
+	
+	//方式一：工厂模型
+	function createPerson(name,sex,age) {
+		var obj = new Object();
+		obj.name = name;
+		obj.sex = sex;
+		obj.age = sex;
+		obj.say = function() {
+			console.log(this.name);
+		}
+		return obj;
+	}
+	
+	var p1 = createPerson("wwss","男",26);
+	var p2 = createPerson("wd","男",22);
+	console.log(p1.name);
+	p1.say();
+	console.log(p2.name);
+
+	
+	//方式二:构造函数
+	
+	function Person(name,age,sex) {
+		this.name = name;
+		this.age = age;
+		this.sex = sex;
+		this.say = function() {
+			console.log("hello my name is "+this.name);
+		}
+	}
+	
+	var p1 = new Person("lee","男",26);
+	var p2 = new Person("jr","男",24);
+	
+	console.log(p1.name);
+	p1.say();
+	console.log(p2.name);
+	p2.say();
+	
+	console.log(p1.constructor == Person);
+	console.log(p1 instanceof Person);
+	console.log(p1 instanceof Object);
+	
+	Person("a","n",22);//相当于在window上执行了，则在全局环境定义属性了
+	console.log(name);
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

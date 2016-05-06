@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	function Person() {
+		
+	}
+	
+	//重写了原型
+	Person.prototype = {
+		//constructor : Person,//必须得加上原型对象的构造器
+		name : "wwss",
+		age : 26,
+		job : "程序员",
+		say : function() {
+			console.log(this.name);
+		}
+	}
+	//FF4+,ie8+
+	//ECMA5给原型对象重新设置构造器的方法
+	//Object.defineProperty();
+	//3个参数，
+	//第一个参数：重新设置构造器的对象
+	//参数2：设置什么属性
+	//参数3：options配置项
+	Object.defineProperty(Person.prototype,'constructor',{
+		enumerable : false,
+		value : Person
+	});
+
+	var p1 = new Person();
+	console.log(p1.name);
+	p1.say();
+	
+	console.log(Person.prototype.constructor);
+	
+	//constructor是不能被枚举的，此处会被输出
+	for(var attr in p1) {
+		console.log(attr);
+	}
+	
+	
+	
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

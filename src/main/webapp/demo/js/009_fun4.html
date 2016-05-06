@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	var k = 10;
+	
+	function test() {
+		this.k = 20;
+	}
+	
+	console.log(k);//10
+	test();
+	console.log(k);//20
+	console.log(test.k);//undefined
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

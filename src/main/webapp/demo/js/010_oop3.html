@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	function Person() {
+		
+	}
+	
+	Person.prototype.name = "wwss";
+	Person.prototype.age = 36;
+	Person.prototype.sayName = function() {
+		console.log(this.name);
+	}
+	
+	
+	var p1 = new Person();
+	//通过实例对象获取原型对象
+	var prototypeObj = Object.getPrototypeOf(p1);
+	console.log(prototypeObj);
+	console.log(prototypeObj == Person.prototype);
+	
+	var p2 = new Person();
+	p2.name = "lee";
+	console.log(p2.name);
+	
+	delete p2.name;
+	console.log(p2.name);
+	
+	var p3 = new Person();
+	console.log(p2.hasOwnProperty("name"));
+	p3.name = "ss";
+	console.log(p3.hasOwnProperty("name"));
+
+	var p1 = new Person();
+	console.log("name" in p1);//实例或者原型中存在 则返回true
+	var p2 = new Person();
+	
+	
+	//判断属性是否是在这个对象的原型对象中
+	function hasPrototypePro(object,name) {
+		return !object.hasOwnProperty(name) && name in object;
+	}
+	
+	console.log(hasPrototypePro(p3));
+	
+	
+	//ECMA5新特性Object.keys();
+	var p1 = new Person();
+	p1.name = "ws";
+	p1.age = 26;
+	
+	var attrs = Object.keys(p1);
+	console.log(attrs);
+	
+	var attr2 = Object.keys(Person.prototype);
+	console.log(attr2);
+	
+	//ECMA5
+	//constructor属性是不能被枚举的
+	
+	//枚举对象所有属性，不管 该对象内部属性能否被枚举
+	//Object.getOwnPropertyNames
+	
+	
+	var attr3 = Object.getOwnPropertyNames(Person.prototype);
+	console.log(attr3);
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>
