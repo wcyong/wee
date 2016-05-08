@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	//混合继承：原型继承和借用构造函数继承
+	
+/* 	function Person(name,age) {
+		this.name = name;
+		this.age = age;
+	}
+	
+	Person.prototype = {
+		constructor : Person,
+		sayHello = function() {
+			console.log("hello");
+		}
+	}
+	
+	function Boy(name,age,sex) {
+		//call绑定父类的模板函数，实现借用构造函数继承，只复制了父类的模板
+		Person.call(this,name,age);
+		this.sex = sex;
+	}
+	
+	//原型继承的方式：即继承了模板，又继承了父类的原型对象
+	Boy.prototype = new Person();
+	
+	
+	var b = new Boy("wwss",26,"男"); */
+	
+	
+	//混合继承的缺点:
+	//3件事：继承了2次父类的模板，继承了一次父类原型对象
+	
+	
+	//模拟extjs继承
+	//2件事，继承1次父类的模板，继承一次父类的原型对象
+	
+	function Person(name,age) {
+		this.name = name;
+		this.age = age;
+	}
+	
+	Person.prototype = {
+		constructor : Person,
+		sayHello : function() {
+			console.log("hello js");
+		}
+	}
+	
+	function Bob(name,age,sex) {
+		//call绑定父类的模板函数，实现借用构造函数继承，只复制了父类的模板
+		//Person.call(this.name,age);
+		Bob.superClass.constructor.call(this,name,age);
+		this.sex = sex;
+	}
+	
+	//只继承一次父类的原型对象
+	extend(Bob,Person);
+	
+	//子类原型对象方法
+	Bob.prototype.sayHello = function() {
+		console.log("hi js");
+	}
+	
+	var b = new Bob("wwss",26,"男");
+	console.log(b.name);
+	console.log(b.age);
+	console.log(b.sex);
+	b.sayHello();//调用子类方法
+	Bob.superClass.sayHello.call(b);//调用父类方法
+	
+	
+	
+	
+	
+	function extend(sub, sup) {
+		//目的：实现只继承父类的原型对象
+		//1.创建一个空函数，目的是用一个空函数进行中转
+		var F = new Function();
+		//2.实现空函数原型对象和超类的原型对象转换
+		F.prototype = sup.prototype;
+		//3.原型继承
+		sub.prototype = new F();
+		//4.还原子类的构造器
+		sub.prototype.constructor = sub;
+		//5.保存一下父类的原型对象，一方方便解耦，另一方面方便获取父类的原型对象
+		//自定义一个子类的静态属性,接收父类的原型对象
+		sub.superClass = sup.prototype;
+		//判断父类原型对象的构造器
+		if(sup.prototype.constructor == Object.prototype.constructor) {
+			//手动还原父类的原型对象的构造器
+			sup.prototype.constructor = sup;
+		}
+	}
+	
+	
+	
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
