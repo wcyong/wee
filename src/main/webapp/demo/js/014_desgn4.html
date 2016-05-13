@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	//单体模式(singleton)
+	//1.简单单体模式
+	
+	var Singleton = {
+		attr1:true,
+		attr2:10,
+		method1 : function() {
+			console.log("method1");
+		},
+		method2 : function() {
+			console.log("method2");
+		}
+	};
+	
+	console.log(Singleton.attr1);
+	
+	
+	//划分命令空间
+	var MYLIB = {};
+	MYLIB.Singleton = {
+		attr1:true,
+		attr2:10,
+		method1 : function() {
+			console.log("method1");
+		},
+		method2 : function() {
+			console.log("method2");
+		}
+	}
+	
+	
+	//借用闭包创建单体
+	var MYLIB = {
+			
+	}
+	MYLIB.Singleton = (function(){
+		//添加自己的私有成员
+		var a1 = true;
+		var a2 = 10;
+		var f1 = function() {
+			console.log("xxxx");
+		}
+		
+		//把执行结果赋值给单体对象
+		return {
+			attr1:a1,
+			attr2:a2,
+			method1 : function() {
+				return f1();
+			},
+			method2 : function() {
+				console.log("method2");
+			}
+		};
+	})();
+	
+	console.log(MYLIB.Singleton.attr1);
+	console.log(MYLIB.Singleton.attr2);
+	MYLIB.Singleton.method1();
+	MYLIB.Singleton.method2();
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
