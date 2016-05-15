@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//享元模式：优化的设计模式
+	
+	//享元模式：内在数据static（make, model, year），外在数据(owner, tag,renewDate)
+	
+	var Car = function(make, model, year, owner, tag,renewDate) {
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.owner = owner;
+		this.tag = tag;
+		this.renewDate = renewDate;
+	};
+	
+	Car.prototype = {
+		constructor : Car,
+		getMake : function() {
+			return this.make;
+		},
+		getModel : function() {
+			return this.model;
+		},
+		getYear : function() {
+			return this.year;
+		},
+		renewRegistration:function(newRenewDate) {
+			this.renewDate = newRenewDate;
+		}
+	}
+	
+	var arr = [];
+	
+	var stime = new Date().getTime();
+	
+	for(var i=0; i<5000000; i++) {
+		arr.push(new Car("dz","mt",'2012-2-01','wwss','0011','2013-05-08'));
+	}
+	
+	var etime = new Date().getTime();
+	
+	console.log(etime-stime);
+
+
+</script>
+</head>
+<body>
+</body>
+</html>

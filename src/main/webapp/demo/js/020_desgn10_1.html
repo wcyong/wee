@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//组合模式
+	
+	var Org = function(name) {
+		this.name = name;
+		this.depts = [];
+	};
+	
+	Org.prototype = {
+		constructor : Org,
+		addDepts : function(child) {
+			this.depts.push(child);
+			return this;
+		},
+		getDepts : function() {
+			return this.depts;
+		}
+	}
+	
+	var Dept = function(name) {
+		this.name = name;
+		this.persons = [];
+	};
+	
+	Dept.prototype = {
+		constructor : Dept,
+		addPerson : function(p) {
+			this.persons.push(p);
+			return this;
+		},
+		getPersons : function() {
+			return this.persons;
+		}
+	}
+	
+	var Person = function(name) {
+		this.name = name;
+	};
+	Person.prototype = {
+		constructor : Person,
+		hardworking : function() {
+			document.write(this.name + "...努力工作");
+		},
+		sleeping : function() {
+			document.write(this.name + "....sleeping");
+		}
+	}
+	
+	
+	
+	var p1 = new Person("wwss1");
+	var p2 = new Person("wwss2");
+	var p3 = new Person("wwss3");
+	var p4 = new Person("wwss4");
+	var p5 = new Person("wwss5");
+	var p6 = new Person("wwss6");
+	
+	var dept1 = new Dept("开发部门");
+	dept1.addPerson(01).addPerson(p2).addPerson(p3);
+	var dept2 = new Dept("销售部门");
+	dept1.addPerson(p4).addPerson(p5).addPerson(p6);
+	
+	var org = new Org();
+	org.addDepts(dept1).addDepts(dept2);
+	
+	
+	for(var i=0, depts=org.getDepts();i < depts.length; i++) {
+		for(var j=0,persons = depts[i].getPersons(); j<persons.length; j++) {
+			if(persons[j].name === 'wwss3') {
+				persons[j].hardworking();
+				persons[j].sleeping();
+			}
+		}
+	}
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

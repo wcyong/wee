@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//桥接模式：主要作用就是把抽象和实现分离开来，使他们可以完全独立变化
+	
+	//应用场景：事件监听回调机制
+	//用户点击一个按钮，向服务器端发送信息
+	
+	
+	$(function(){
+		//前台处理
+		var btn = document.getElementById("btn");
+		//用事件注册的方式，在元素上添加事件
+		MyLib.EventUtil.addHandler(btn, "click", bridgeHandler);
+		
+		
+		//利用桥接模式，将前台和后台处理分开
+		function bridgeHandler() {
+			var msg = this.value;
+			sendReq(msg);
+		}
+		
+		
+		//处理后台的函数
+		function sendReq(msg) {
+			console.log("发送了指定的数据到后台"+msg+"...");
+			//ajax
+			/* $.post('URL',{msg:this.value},function(data){
+				//callback
+			}); */
+		}
+	});
+
+	
+</script>
+</head>
+<body>
+<input type="button" id="btn" value="我是数据">
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+	//搭建一个工厂的环境
+	
+	function CarShop() {
+		
+	}
+	
+	CarShop.prototype = {
+		constructor : CarShop,
+		sellCar : function(type) {
+			this.abstractSellCar(type);
+		},
+		abstractSellCar : function() {
+			throw new Error("this method is abstract");
+		}
+	
+	};
+	
+	function BanzCarShop() {
+		
+	}
+	MyLib.extend(BanzCarShop, CarShop);
+	BanzCarShop.prototype = {
+		constructor : BanzCarShop,
+		sellCar : function(type) {
+			var car ;
+			//所有Banz类型的
+			var types = ['BenZ'];
+			for(t in types) {
+				if(types[t] === type) {
+					car = CarFactory.createCar(type);
+				} else {
+					console.log("没有你要的型号");
+				}
+			}
+			return car;
+		}
+	}
+	
+	function BwmCarShop() {
+		
+	}
+	MyLib.extend(BwmCarShop, CarShop);
+	BwmCarShop.prototype = {
+		constructor : BwmCarShop,
+		sellCar : function(type) {
+			var car ;
+			//所有Banz类型的
+			var types = ['Bwm'];
+			for(t in types) {
+				if(types[t] === type) {
+					car = CarFactory.createCar(type);
+				} else {
+					console.log("没有你要的型号");
+				}
+			}
+			return car;
+		}
+	}
+	
+	function AudiCarShop() {
+		
+	}
+	MyLib.extend(BwmCarShop, CarShop);
+	AudiCarShop.prototype = {
+		constructor : AudiCarShop,
+		sellCar : function(type) {
+			var car ;
+			//所有Banz类型的
+			var types = ['Audi'];
+			for(t in types) {
+				if(types[t] === type) {
+					car = CarFactory.createCar(type);
+				} else {
+					console.log("没有你要的型号");
+				}
+			}
+			return car;
+		}
+	}
+	
+	//生产车的工厂
+	//动态工厂模式
+	var CarFactory = {
+		createCar :function(type) {
+			//利用eval动态创建传入类型的实例对象
+			var car = eval('new ' + type + '()');
+			return car;
+		}
+	}
+	
+	
+	
+	function BaseCar(){
+		
+	}
+	BaseCar.prototype = {
+		constructor : BaseCar,
+		run : function() {
+			console.log(this.constructor.name+" run");
+		},
+		start : function() {
+			console.log(this.constructor.name+" start");
+		}
+	}
+	
+	function BenZ() {
+		
+	}
+	MyLib.extend(BenZ,BaseCar);
+	
+	function Bmw() {
+		
+	}
+	MyLib.extend(Bmw,BaseCar);
+	Bmw.prototype.driveBmw = function() {
+		console.log("Bmw drive");
+	}
+	
+	function Audi() {
+		
+	}
+	MyLib.extend(Audi,BaseCar);
+	Audi.prototype.driveAudi = function() {
+		console.log("audi drive");
+	}
+	
+	/* var shop = new CarShop();
+	var c = shop.sellCar('Benz'); */
+	
+	var shop = new BanzCarShop();
+	var c = shop.sellCar('BenZ');
+	c.start();
+	c.run();
+	shop = new AudiCarShop();
+	var c2 = shop.sellCar('Audi');
+	c2.start();
+	c2.run();
+	c2.driveAudi();
+	
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//桥模式：特权函数
+	
+	var PublicClass = function() {
+		var name = "wwss";
+		
+		//getter访问私有成员变量   //特权函数
+		this.getName = function() {
+			return name;
+		}
+	}
+	
+	var p1 = new PublicClass();
+	console.log(p1.getName());
+	
+	var PublicClass = function() {
+		var privateMethod = function() {
+			console.log("执行了一个操作...");
+		}
+		
+		//特权函数去访问这个私有的独立单元
+		this.bridgeMethod = function() {
+			return privateMethod();
+		}
+		
+	}
+	
+	var p1 = new PublicClass();
+	p1.bridgeMethod();
+	
+	
+	
+	
+	
+	var Class1 = function(a, b ,c) {
+		this.a = a ;
+		this.b = b;
+		this.c = c;
+	};
+	
+	var Class2 = function(d, e) {
+		this.d = d;
+		this.e = e;
+	};
+	
+	
+	var BridgeClass = function(a, b ,c ,d, e) {
+		this.class1 = new Class1(a, b, c);
+		this.class2 = new Class2(d,e);
+	};
+	
+
+	
+</script>
+</head>
+<body>
+<input type="button" id="btn" value="我是数据">
+
+</body>
+</html>

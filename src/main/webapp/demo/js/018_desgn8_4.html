@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+	//搭建一个工厂的环境
+	
+	function CarShop() {
+		
+	}
+	
+	CarShop.prototype = {
+		constructor : CarShop,
+		sellCar : function(type) {
+			/* var car = CarFactory.createCar(type);
+			return car; */
+			this.abstractSellCar(type);
+		},
+		abstractSellCar : function() {
+			throw new Error("this method is abstract");
+		}
+	
+	};
+	
+	function BanzCarShop() {
+		
+	}
+	MyLib.extend(BanzCarShop, CarShop);
+	BanzCarShop.prototype = {
+		constructor : BanzCarShop,
+		sellCar : function(type) {
+			var car = CarFactory.createCar(type);
+			return car;
+		}
+	}
+	
+	function BwmCarShop() {
+		
+	}
+	MyLib.extend(BwmCarShop, CarShop);
+	BwmCarShop.prototype = {
+		constructor : BwmCarShop,
+		sellCar : function(type) {
+			var car = CarFactory.createCar(type);
+			return car;
+		}
+	}
+	
+	function AudiCarShop() {
+		
+	}
+	MyLib.extend(BwmCarShop, CarShop);
+	AudiCarShop.prototype = {
+		constructor : AudiCarShop,
+		sellCar : function(type) {
+			var car = CarFactory.createCar(type);
+			return car;
+		}
+	}
+	
+	//生产车的工厂
+	var CarFactory = {
+		createCar :function(type) {
+			var car;
+			switch(type) {
+				case 'Benz':
+					car = new BenZ();
+					break;
+				case 'Bmw':
+					car = new Bmw();
+					break;
+				case 'Audi':
+					car = new Audi();
+					break;
+			}
+			return car;
+		}
+	}
+	
+	
+	
+	function BaseCar(){
+		
+	}
+	BaseCar.prototype = {
+		constructor : BaseCar,
+		run : function() {
+			console.log(this.constructor.name+" run");
+		},
+		start : function() {
+			console.log(this.constructor.name+" start");
+		}
+	}
+	
+	function BenZ() {
+		
+	}
+	MyLib.extend(BenZ,BaseCar);
+	
+	function Bmw() {
+		
+	}
+	MyLib.extend(Bmw,BaseCar);
+	Bmw.prototype.driveBmw = function() {
+		console.log("Bmw drive");
+	}
+	
+	function Audi() {
+		
+	}
+	MyLib.extend(Audi,BaseCar);
+	Audi.prototype.driveAudi = function() {
+		console.log("audi drive");
+	}
+	
+	/* var shop = new CarShop();
+	var c = shop.sellCar('Benz'); */
+	
+	var shop = new BanzCarShop();
+	var c = shop.sellCar('Benz');
+	c.start();
+	c.run();
+	var c2 = shop.sellCar('Audi');
+	c2.start();
+	c2.run();
+	c2.driveAudi();
+	
+</script>
+</head>
+<body>
+</body>
+</html>

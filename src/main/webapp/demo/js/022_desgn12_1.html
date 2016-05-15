@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+/* 	var obj = {
+		str1 :"aa",
+		str2:'bb',
+		str3:'ccc'
+	};
+	
+	
+	function adapter(obj) {
+		interfaceMethod(obj.attr1,obj.attr2,obj.attr3);
+	}
+	
+	function interfaceMethod(x, y ,z) {
+		
+	} */
+	
+	
+	
+	//prototype
+	function $() {
+		var elements = [];
+		for(var i=0; i<arguments.length; i++) {
+			var ele = arguments[i];
+			if(typeof ele == 'string') {
+				ele = document.getElementById(ele);
+			}
+			if(arguments.length == 1) {
+				return ele;
+			}
+			elements.push(ele)
+		}
+		return elements;
+	}
+	
+	//YUI
+	var YAHOO = {};
+	YAHOO.get = function(el) {
+		if(typeof el == 'string') {
+			return document.getElementById(el);
+		}
+		if(el instanceof Array) {
+			var elements = [];
+			for(var i=0; i<el.length; i++) {
+				elements.push(YAHOO.get(el[i]));
+			}
+			return elements;
+		}
+		if(el) {
+			return el;
+		}
+		return null;
+		
+	}
+	
+	YAHOO.get = YUIToPrototypeAdapter;
+	function YUIToPrototypeAdapter() {
+		//对于 YUI开发一米兰，永远传递一个参数
+		if(arguments.length == 1) {
+			var e = arguments[0];
+			return $.apply(window,e instanceof Array ? e : [e]);
+		} else {
+			return $.apply(window, arguments);
+		}
+	}
+	
+	
+	
+	window.onload = function() {
+		//prototype
+		/* var domarr = $('inp1','inp2');
+		console.log(domarr);
+		
+		//YUI
+		var domarr = YAHOO.get(['inp1','inp2']);
+		console.log(domarr); */
+		
+		//用适配器
+		var domarr = YAHOO.get(['inp1','inp2']);
+		console.log(domarr);
+	}
+	
+</script>
+</head>
+<body>
+	<input id="inp1">
+	<input id="inp2">
+	
+</body>
+</html>

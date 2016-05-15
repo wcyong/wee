@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//组合模式
+	
+	var Composite = function(name) {
+		this.name = name;
+		//对象类型
+		this.type = 'Composite';
+		this.children = [];
+	};
+	
+	Composite.prototype = {
+		constructor : Composite,
+		addChild :function(child) {
+			this.children.push(child);
+			return this;
+		},
+		getChild : function(name) {
+			var elements = [];//接收叶子对象
+			//判断对象是否为Left类型,如果是则添加到elements中，不是则递归调用
+			var pushLeaf = function(item){
+				if(item.type === 'Composite') {
+					item.children.each(arguments.callee);					
+				} else if(item.type === 'Left'){
+					elements.push(item);
+				}
+			}
+			if(name && this.name !== name) {
+				this.children.each(function(item){
+					//如果传递的name是2级节点
+					if(item.name === name && item.type === 'Composite') {
+						item.children.each(pushLeaf);
+					}
+					//如果传递的name是3级，4级....节点
+					if(item.name !== name && item.type === 'Composite') {
+						item.children.each(arguments.callee);
+					}
+					//如果传递的name是叶子节点
+					if(item.name === name && item.type === 'Left') {
+						elements.push(item);
+					}
+				});
+			} else {
+				this.children.each(pushLeaf);
+			}
+			return elements;
+		},
+		hardworking : function(name) {
+			//得到所有的Left类型的对象
+			var leftObjs = this.getChild(name);
+			for(var i=0;i<leftObjs.length; i++) {
+				leftObjs[i].hardworking();
+			}
+		},
+		sleeping : function() {
+			var leftObjs = this.getChild(name);
+			for(var i=0;i<leftObjs.length; i++) {
+				leftObjs[i].sleeping();
+			}
+		}
+	}
+	
+	var Left = function(name) {
+		this.name = name;
+		this.type = "Left";
+	};
+	
+	Left.prototype = {
+		constructor :Left,
+		addChild :function() {
+			throw new Error("this method is disabled...");
+		},
+		getChild : function(name) {
+			if(this.name == name) {
+				return this;
+			} else {
+				return null;
+			}
+		},
+		hardworking : function() {
+			document.write(this.name + '努力工作...');
+			document.write("</br>");
+		},
+		sleeping : function() {
+			console.log(this.name + '努力睡觉...');
+		}
+	}
+	
+	var p1 = new Left("wwss1");
+	var p2 = new Left("wwss2");
+	var p3 = new Left("wwss3");
+	var p4 = new Left("wwss4");
+	var p5 = new Left("wwss5");
+	var p6 = new Left("wwss6");
+	
+	var dept1 = new Composite("开发部门");
+	dept1.addChild(p1).addChild(p2).addChild(p3);
+	var dept2 = new Composite("销售部门");
+	dept2.addChild(p4).addChild(p5).addChild(p6);
+	
+	var org = new Composite("wwss");
+	org.addChild(dept1).addChild(dept2);
+	org.hardworking("wwss");
+	org.hardworking();
+	org.hardworking("wwss1");
+	org.hardworking("开发部门");
+
+	
+	
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

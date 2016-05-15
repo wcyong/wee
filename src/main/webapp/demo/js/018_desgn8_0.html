@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+	//搭建一个工厂的环境
+	
+	function CarShop() {
+		
+	}
+	
+	CarShop.prototype = {
+		constructor : CarShop,
+		sellCar : function(type) {
+			var car;
+			switch(type) {
+				case 'Benz':
+					car = new BenZ();
+					break;
+				case 'Bmw':
+					car = new Bmw();
+					break;
+				case 'Audi':
+					car = new Audi();
+					break;
+			}
+			return car;
+		}
+	
+	};
+	
+	function BenZ() {
+		
+	}
+	
+	function Bmw() {
+		
+	}
+	
+	function Audi() {
+		
+	}
+	
+	BenZ.prototype.start = function() {
+		console.log("BenZ start");
+	}
+	
+	BenZ.prototype.run = function() {
+		console.log("BenZ run");
+	}
+	
+	Bmw.prototype.start = function() {
+		console.log("BenZ start");
+	}
+	
+	Bmw.prototype.run = function() {
+		console.log("BenZ run");
+	}
+	
+	Audi.prototype.start = function() {
+		console.log("BenZ start");
+	}
+	
+	Audi.prototype.run = function() {
+		console.log("BenZ run");
+	}
+	
+	var shop = new CarShop();
+	var c = shop.sellCar('Benz');
+	c.start();
+	c.run();
+	
+	
+</script>
+</head>
+<body>
+</body>
+</html>
