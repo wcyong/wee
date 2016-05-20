@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//享元模式：优化的设计模式
+	
+	//享元模式：内在数据static（make, model, year），外在数据(owner, tag,renewDate)
+	
+	var Car = function(make, model, year) {
+		this.make = make;
+		this.model = model;
+		this.year = year;
+	};
+	
+	Car.prototype = {
+		constructor : Car,
+		getMake : function() {
+			return this.make;
+		},
+		getModel : function() {
+			return this.model;
+		},
+		getYear : function() {
+			return this.year;
+		}
+	}
+	
+	//工厂模式(闭包工厂)
+	var CarFactory = (function(){
+		//
+		var createCars = {};
+		
+		return {
+			createCar : function(make, model, year) {
+				//如果createCars对象里已经存在
+				if(createCars[make+model+year]) {
+					return createCars[make+model+year];
+				} else {
+					var car = new Car(make, model, year);
+					createCars[make+model+year] = car;
+					return car;
+				}
+			}
+		}
+	})();
+	
+	
+	//单体模式(把外在的数据和内在的数据结合在一起)
+	var CarRecordManager = (function(){
+		var carRecordDataBase = {};
+		return {
+			addCarRecord:function(make, model, year, owner, tag,renewDate) {
+				var car = CarFactory.createCar(make, model, year);
+				carRecordDataBase[tag] = {
+					owner : owner,
+					renewDate : renewDate,
+					car : car
+				}
+			},
+			renewRegistration:function(tag,newRenewDate) {
+				carRecordDataBase[tag].renewDate = newRenewDate;
+			}
+		}
+	})();
+	
+	var arr = [];
+	
+	var stime = new Date().getTime();
+	
+	for(var i=0; i<5000000; i++) {
+		//arr.push(new Car("dz","mt",'2012-2-01','wwss','0011','2013-05-08'));
+		//享元模式的测试
+		arr.push(CarRecordManager.addCarRecord("dz","mt",'2012-2-01','wwss','0011','2013-05-08'));
+	}
+	
+	var etime = new Date().getTime();
+	
+	console.log(etime-stime);
+
+
+</script>
+</head>
+<body>
+</body>
+</html>

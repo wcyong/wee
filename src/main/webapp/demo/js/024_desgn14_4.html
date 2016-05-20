@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//享元模式：web日历
+	
+	var CalendarYear = function(year, parent) {
+		this.year = year;
+		this.element = document.createElement("div");
+		this.element.style = 'none';
+		parent.appendChild(this.element);
+		
+		//是否是闰年
+		var isLeapYear = function(y) {
+			return (y > 0) && !(y%4) && ((y%100)||!(y%400));
+		}
+		
+		this.months = [];//年对象里面包含月份
+		//当前年所有月份有多少天
+		this.numDays = [31,isLeapYear(this.year) ? 29:28,31,30,31,30,31,31,30,31,30,31];
+		
+		for(var i=0; i<12; i++) {
+			this.months[i] = new CalendarMonth(i, this.numDays[i], this.element);
+		}
+	};
+	
+	CalendarYear.prototype = {
+		constructor : CalendarYear,
+		display : function() {
+			for(var i=0; i<this.months.length; i++) {
+				this.months[i].display();
+			}
+			this.element.style.display = "block";
+		}
+	}
+	
+	var CalendarMonth = function(monthNum, numDays, parent) {
+		this.monthNum = monthNum;
+		this.element = document.createElement("div");
+		this.element.style = "none";
+		parent.appendChild(this.element);
+		
+		//月份里面包含一个天的数组
+		this.days = [];
+		
+		for(var i=0; i<numDays; i++) {
+			this.days[i] = calendarDaySingleInstance;
+		}
+	};
+	
+	CalendarMonth.prototype = {
+		constructor : CalendarMonth,
+		display : function() {
+			for(var i=0; i<this.days.length; i++) {
+				this.days[i].display(i+1, this.element);
+			}
+			this.element.style.display = "block";
+		}
+	}
+	
+	var CalendarDay = function(){};
+	CalendarDay.prototype = {
+		constructor : CalendarDay,
+		display : function(date, parent) {
+			var element = document.createElement("div");
+			parent.appendChild(element);
+			element.style.display = "inline-block";
+			element.innerHTML = date;
+		} 
+	}
+	var calendarDaySingleInstance = new CalendarDay();
+	
+	window.onload = function() {
+		var mydiv = document.getElementById("mydiv");
+		var myyear = new CalendarYear(2016, mydiv);
+		myyear.display();
+	}
+	
+
+
+</script>
+</head>
+<body>
+
+	<div id="mydiv"></div>
+
+</body>
+</html>

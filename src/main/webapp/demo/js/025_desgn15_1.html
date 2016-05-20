@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//代理模式:
+		
+	var Book = function(id, title, author) {
+		this.id = id;
+		this.title = title;
+		this.author = author;
+	}
+		
+	var Library = function(books) {
+		this.books = books;
+	}
+	Library.prototype = {
+		constructor : Library,
+		addBook :function(book) {
+			this.books[book.id] = book;
+		},
+		findBook :function(id) {
+			if(this.books[id]) {
+				return this.books[id];
+			}
+			return null;
+		},
+		checkoutbook :function(id) {
+			return findBook(id);
+		},
+		returnBook : function(book) {
+			this.books[book.id] = book;
+		}
+	}
+	
+	var LibraryProxy = function(books) {
+		this.books = books;
+		this.library = null;
+	}
+	LibraryProxy.prototype = {
+			constructor : LibraryProxy,
+			init:function() {
+				if(this.library == null) {
+					this.library = new Library(this.books);
+				}
+			},
+			addBook :function(book) {
+				this.init();
+				this.library.addBook(book);
+			},
+			findBook :function(id) {
+				this.init();
+				return this.library.findBook(id);
+			},
+			checkoutbook :function(id) {
+				this.init();
+				return this.library.findBook(id);
+			},
+			returnBook : function(book) {
+				this.init();
+				this.library.returnBook(book);
+			}
+		}
+	
+	var proxy = new LibraryProxy({
+		"01":new Book("01","java","z3"),
+		"02":new Book("02","javascript","ww")
+	});
+	
+	var r = proxy.findBook("01");
+	console.log(r);
+
+
+</script>
+</head>
+<body>
+
+	<div id="mydiv"></div>
+
+</body>
+</html>
