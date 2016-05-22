@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div, p {
+		width: 100px; height: 20px; border: 1px solid red; margin: 10px 0;
+	}
+</style>
+</head>
+<body>
+	
+	<div></div>
+	<div></div>
+	<p></p>
+	<p></p>
+
+<script type="text/javascript">
+	
+	var getTag = function(tag) {
+		return document.getElementsByTagName(tag);
+	};
+	
+	//1.获取所有的元素
+	var divs = getTag("div");
+	var ps = getTag("p");
+	
+	//2.遍历添加样式
+	var each = function(arr,fn) {
+		for(var i=0; i<arr.length; i++) {
+			if(fn.call(arr[i], i, arr[i]) === false) {
+				break;
+			}
+		}
+	};
+	
+	each(divs, function(index, item){
+		this.style.backgroundColor = 'green';
+	})
+	
+	each(ps, function(index, item){
+		this.style.backgroundColor = 'blue';
+	})
+	
+	
+</script>
+
+</body>
+</html>

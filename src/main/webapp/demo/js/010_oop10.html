@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+var a = 10;
+var b = 20;
+	var sum1 = function(a,b) {
+		console.log(a+b);
+	};
+	
+	var sum2 = sum1;
+	
+	sum1 = function(a) {
+		console.log(a);
+	}
+	
+	sum1(a,b);
+	sum2(a,b);
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

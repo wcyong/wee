@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="common/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="common/CommonUtil.js"></script>
+<script type="text/javascript">
+
+
+	//命令模式
+	//命令模式是一种封装方法调用的方式
+	
+	//
+	
+	var StartCommand = function(obj) {
+		this.ad = obj;
+	};
+	StartCommand.prototype.execute = function() {
+		this.ad.start();
+	}
+	
+	var StopCommand = function(obj) {
+		this.ad = obj;
+	};
+	StopCommand.prototype.execute = function() {
+		this.ad.stop();
+	}
+	
+	
+	var startCommond = new StartCommand(obj);
+	startCommand.execute();
+	var stopCommand = new StopCommand(obj);
+	stopCommand.execute;
+	
+	
+	
+	//闭包的命令模式
+	function MakeStart(obj) {
+		return function() {
+			obj.start();
+		}
+	}
+	
+	function MakeStop(obj) {
+		return function() {
+			obj.stop();
+		}
+	}
+	
+	var startCommand = new MakeStart(obj);
+	startCommand();
+	var stopCommand = new MakeStop(obj);
+	stopCommand();
+	
+	
+</script>
+</head>
+<body>
+
+	
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div, p {
+		width: 100px; height: 20px; border: 1px solid red; margin: 10px 0;
+	}
+</style>
+</head>
+<body>
+	
+	<div></div>
+	<div></div>
+	<p></p>
+	<p></p>
+
+<script type="text/javascript">
+	
+	var getTag = function(tag, results) {
+		results = results || [];
+		results.push.apply(results, document.getElementsByTagName(tag));
+		return results;
+	};
+	
+	var each = function(arr,fn) {
+		for(var i=0; i<arr.length; i++) {
+			if(fn.call(arr[i], i, arr[i]) === false) {
+				break;
+			}
+		}
+	};
+	
+	each(getTag("p", getTag("div")), function(index, item){
+		this.style.backgroundColor = 'orange';
+	})
+	
+	
+</script>
+
+</body>
+</html>
