@@ -8,9 +8,6 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 本地Session
- * @author wcyong
- *
- * @date   2015年10月9日
  */
 public class HttpSessionProvider implements SessionProvider{
 

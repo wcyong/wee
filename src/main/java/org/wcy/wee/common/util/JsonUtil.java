@@ -3,9 +3,10 @@ package org.wcy.wee.common.util;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import org.bson.json.JsonParseException;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
